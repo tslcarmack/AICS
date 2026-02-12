@@ -1,0 +1,428 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ========================================
+// Auth
+// ========================================
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String   @map("password_hash")
+  role         String   @default("agent") // admin | agent
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  assignedTickets Ticket[]         @relation("AssignedTickets")
+  ticketActivities TicketActivity[]
+
+  @@map("users")
+}
+
+// ========================================
+// Settings
+// ========================================
+model SystemSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}
+
+// ========================================
+// Integration - Email
+// ========================================
+model EmailAccount {
+  id          String   @id @default(cuid())
+  email       String
+  displayName String   @map("display_name")
+  provider    String   // gmail, 163, outlook, custom
+  imapHost    String   @map("imap_host")
+  imapPort    Int      @map("imap_port")
+  smtpHost    String   @map("smtp_host")
+  smtpPort    Int      @map("smtp_port")
+  credentials Json     // encrypted password or OAuth2 token
+  enabled     Boolean  @default(true)
+  lastSyncAt  DateTime? @map("last_sync_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  tickets Ticket[]
+
+  @@map("email_accounts")
+}
+
+// ========================================
+// Knowledge Center
+// ========================================
+model KnowledgeBase {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  categories KnowledgeCategory[]
+  documents  KnowledgeDocument[]
+  agents     AgentKnowledgeBase[]
+
+  @@map("knowledge_bases")
+}
+
+model KnowledgeCategory {
+  id              String   @id @default(cuid())
+  name            String
+  parentId        String?  @map("parent_id")
+  knowledgeBaseId String   @map("knowledge_base_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  parent        KnowledgeCategory?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children      KnowledgeCategory[] @relation("CategoryTree")
+  knowledgeBase KnowledgeBase       @relation(fields: [knowledgeBaseId], references: [id], onDelete: Cascade)
+  documents     KnowledgeDocument[]
+
+  @@map("knowledge_categories")
+}
+
+model KnowledgeDocument {
+  id              String   @id @default(cuid())
+  name            String
+  type            String   // pdf, docx, xlsx, txt, html, richtext
+  content         String?  @db.Text
+  filePath        String?  @map("file_path")
+  status          String   @default("pending") // pending, processing, ready, failed
+  knowledgeBaseId String   @map("knowledge_base_id")
+  categoryId      String?  @map("category_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  knowledgeBase KnowledgeBase      @relation(fields: [knowledgeBaseId], references: [id], onDelete: Cascade)
+  category      KnowledgeCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  chunks        KnowledgeChunk[]
+
+  @@map("knowledge_documents")
+}
+
+model KnowledgeChunk {
+  id         String @id @default(cuid())
+  content    String @db.Text
+  documentId String @map("document_id")
+  metadata   Json?
+  embedding  Json?  // float[] stored as JSON array
+
+  document KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("knowledge_chunks")
+}
+
+// ========================================
+// Intent
+// ========================================
+model Intent {
+  id                 String   @id @default(cuid())
+  name               String
+  description        String?  @db.Text
+  type               String   // preset | custom
+  exampleUtterances  Json?    @map("example_utterances") // string[]
+  keywords           Json?    // string[]
+  confidenceThreshold Float?  @default(0.7) @map("confidence_threshold")
+  boundAgentId       String?  @map("bound_agent_id")
+  enabled            Boolean  @default(true)
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  boundAgent Agent?   @relation(fields: [boundAgentId], references: [id], onDelete: SetNull)
+  tickets    Ticket[]
+
+  @@map("intents")
+}
+
+// ========================================
+// Variable
+// ========================================
+model Variable {
+  id                     String   @id @default(cuid())
+  name                   String   @unique
+  type                   String   // value | list
+  isSystem               Boolean  @default(false) @map("is_system")
+  smartExtractionEnabled Boolean  @default(false) @map("smart_extraction_enabled")
+  extractionInstruction  String?  @db.Text @map("extraction_instruction")
+  keywords               Json?    // string[]
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  listItems       VariableListItem[]
+  ticketVariables TicketVariable[]
+
+  @@map("variables")
+}
+
+model VariableListItem {
+  id          String  @id @default(cuid())
+  variableId  String  @map("variable_id")
+  value       String
+  keywords    Json?   // string[]
+  description String?
+
+  variable Variable @relation(fields: [variableId], references: [id], onDelete: Cascade)
+
+  @@map("variable_list_items")
+}
+
+// ========================================
+// Tool
+// ========================================
+model Tool {
+  id              String   @id @default(cuid())
+  name            String   @unique
+  displayName     String   @map("display_name")
+  description     String   @db.Text
+  type            String   // http_api | builtin
+  method          String?  // GET | POST | PUT | DELETE | PATCH
+  url             String?  @db.Text
+  headers         Json?
+  bodyTemplate    Json?    @map("body_template")
+  authType        String?  @map("auth_type") // none | api_key | bearer | basic
+  authConfig      Json?    @map("auth_config") // encrypted
+  parameters      Json     // OpenAI function calling compatible JSON Schema
+  responseMapping Json?    @map("response_mapping") // { jsonPath: variableName }
+  timeout         Int      @default(30000)
+  enabled         Boolean  @default(true)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  agents        AgentTool[]
+  executionLogs ToolExecutionLog[]
+
+  @@map("tools")
+}
+
+model AgentTool {
+  agentId String @map("agent_id")
+  toolId  String @map("tool_id")
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  tool  Tool  @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@id([agentId, toolId])
+  @@map("agent_tools")
+}
+
+model ToolExecutionLog {
+  id         String   @id @default(cuid())
+  toolId     String   @map("tool_id")
+  ticketId   String?  @map("ticket_id")
+  agentId    String?  @map("agent_id")
+  input      Json
+  output     Json?
+  statusCode Int?     @map("status_code")
+  duration   Int      // ms
+  success    Boolean
+  error      String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  tool   Tool    @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  ticket Ticket? @relation(fields: [ticketId], references: [id], onDelete: SetNull)
+  agent  Agent?  @relation(fields: [agentId], references: [id], onDelete: SetNull)
+
+  @@map("tool_execution_logs")
+}
+
+// ========================================
+// Agent
+// ========================================
+model Agent {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?  @db.Text
+  type         String   // conversational | workflow
+  systemPrompt String?  @db.Text @map("system_prompt")
+  modelId      String?  @map("model_id")
+  temperature  Float?   @default(0.7)
+  maxTokens    Int?     @map("max_tokens")
+  topP         Float?   @map("top_p")
+  toolConfig   Json?    @map("tool_config")
+  enabled      Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  knowledgeBases   AgentKnowledgeBase[]
+  workflowSteps    WorkflowStep[]
+  intents          Intent[]
+  tickets          Ticket[]
+  tools            AgentTool[]
+  toolExecutionLogs ToolExecutionLog[]
+
+  @@map("agents")
+}
+
+model AgentKnowledgeBase {
+  agentId         String @map("agent_id")
+  knowledgeBaseId String @map("knowledge_base_id")
+
+  agent         Agent         @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  knowledgeBase KnowledgeBase @relation(fields: [knowledgeBaseId], references: [id], onDelete: Cascade)
+
+  @@id([agentId, knowledgeBaseId])
+  @@map("agent_knowledge_bases")
+}
+
+model WorkflowStep {
+  id         String  @id @default(cuid())
+  agentId    String  @map("agent_id")
+  order      Int
+  type       String  // llm_call | condition | variable_set | http_request | sub_agent
+  config     Json
+  thenStepId String? @map("then_step_id")
+  elseStepId String? @map("else_step_id")
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@map("workflow_steps")
+}
+
+// ========================================
+// Safety
+// ========================================
+model SafetyRule {
+  id          String   @id @default(cuid())
+  name        String
+  description String?  @db.Text
+  type        String   // builtin | custom
+  checkType   String   @map("check_type") // keyword | regex | llm
+  pattern     String?  @db.Text // keyword list, regex, or LLM prompt
+  severity    String   @default("medium") // low | medium | high | critical
+  action      String   @default("flag") // flag | block | escalate
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  logs SafetyLog[]
+
+  @@map("safety_rules")
+}
+
+model SafetyLog {
+  id            String   @id @default(cuid())
+  ticketId      String   @map("ticket_id")
+  ruleId        String?  @map("rule_id")
+  violationType String   @map("violation_type")
+  details       String?  @db.Text
+  severity      String
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  ticket Ticket      @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  rule   SafetyRule? @relation(fields: [ruleId], references: [id], onDelete: SetNull)
+
+  @@map("safety_logs")
+}
+
+model AlertConfig {
+  id             String  @id @default(cuid())
+  severityLevels Json    @map("severity_levels") // string[]
+  channels       Json    // string[] (in_app, email)
+  threshold      Int     @default(10)
+  periodMinutes  Int     @default(60) @map("period_minutes")
+  enabled        Boolean @default(true)
+
+  @@map("alert_configs")
+}
+
+// ========================================
+// Ticket
+// ========================================
+model Ticket {
+  id             String   @id @default(cuid())
+  source         String   // email | api | manual
+  customerEmail  String?  @map("customer_email")
+  customerName   String?  @map("customer_name")
+  subject        String?
+  status         String   @default("pending") // pending | processing | awaiting_reply | resolved | escalated | closed
+  intentId       String?  @map("intent_id")
+  assignedUserId String?  @map("assigned_user_id")
+  agentId        String?  @map("agent_id")
+  emailAccountId String?  @map("email_account_id")
+  emailMessageId String?  @unique @map("email_message_id") // for dedup
+  metadata       Json?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  intent       Intent?       @relation(fields: [intentId], references: [id], onDelete: SetNull)
+  assignedUser User?         @relation("AssignedTickets", fields: [assignedUserId], references: [id], onDelete: SetNull)
+  agent        Agent?        @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  emailAccount EmailAccount? @relation(fields: [emailAccountId], references: [id], onDelete: SetNull)
+
+  messages          TicketMessage[]
+  activities        TicketActivity[]
+  variables         TicketVariable[]
+  safetyLogs        SafetyLog[]
+  pipelines         PipelineProcessing[]
+  toolExecutionLogs ToolExecutionLog[]
+
+  @@map("tickets")
+}
+
+model TicketMessage {
+  id        String   @id @default(cuid())
+  ticketId  String   @map("ticket_id")
+  direction String   // inbound | outbound
+  content   String   @db.Text
+  sender    String?
+  messageId String?  @map("message_id") // email Message-ID
+  createdAt DateTime @default(now()) @map("created_at")
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@map("ticket_messages")
+}
+
+model TicketActivity {
+  id          String   @id @default(cuid())
+  ticketId    String   @map("ticket_id")
+  type        String   // status_change | assignment | reply | note | pipeline_stage
+  description String   @db.Text
+  userId      String?  @map("user_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("ticket_activities")
+}
+
+model TicketVariable {
+  id               String @id @default(cuid())
+  ticketId         String @map("ticket_id")
+  variableId       String @map("variable_id")
+  value            String?
+  extractionMethod String @map("extraction_method") // auto_sync | keyword | smart | not_extracted
+
+  ticket   Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  variable Variable @relation(fields: [variableId], references: [id], onDelete: Cascade)
+
+  @@unique([ticketId, variableId])
+  @@map("ticket_variables")
+}
+
+// ========================================
+// Pipeline
+// ========================================
+model PipelineProcessing {
+  id        String   @id @default(cuid())
+  ticketId  String   @map("ticket_id")
+  stage     String   // ingest | intent | variable | agent | safety | reply
+  status    String   @default("queued") // queued | processing | completed | failed | escalated
+  result    Json?
+  error     String?  @db.Text
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@map("pipeline_processings")
+}

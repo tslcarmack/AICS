@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # ========================================
+  # PostgreSQL with pgvector
+  # ========================================
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: aics-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aics}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aics_password}
+      POSTGRES_DB: ${POSTGRES_DB:-aics}
+    ports:
+      - '${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-aics}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ========================================
+  # Redis
+  # ========================================
+  redis:
+    image: redis:7-alpine
+    container_name: aics-redis
+    restart: unless-stopped
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ========================================
+  # Backend (NestJS)
+  # ========================================
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    container_name: aics-server
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-aics}:${POSTGRES_PASSWORD:-aics_password}@postgres:5432/${POSTGRES_DB:-aics}?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-change-in-production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.openai.com/v1}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
+      LLM_EMBEDDING_MODEL: ${LLM_EMBEDDING_MODEL:-text-embedding-3-small}
+      SERVER_PORT: 3001
+      NODE_ENV: production
+    ports:
+      - '${SERVER_PORT:-3001}:3001'
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ========================================
+  # Frontend (Next.js)
+  # ========================================
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: aics-web
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001/api}
+    ports:
+      - '${WEB_PORT:-3000}:3000'
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads_data:

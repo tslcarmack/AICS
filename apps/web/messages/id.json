@@ -1,0 +1,918 @@
+{
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "loading": "Memuat...",
+    "confirm": "OK",
+    "create": "Buat",
+    "edit": "Edit",
+    "view": "Lihat",
+    "close": "Tutup",
+    "back": "Kembali",
+    "retry": "Coba Lagi",
+    "name": "Nama",
+    "description": "Deskripsi",
+    "status": "Status",
+    "actions": "Aksi",
+    "enabled": "Aktif",
+    "disabled": "Nonaktif",
+    "success": "Berhasil",
+    "failed": "Gagal",
+    "saving": "Menyimpan...",
+    "creating": "Membuat...",
+    "deleting": "Menghapus...",
+    "sending": "Mengirim...",
+    "uploading": "Mengunggah...",
+    "deleted": "Dihapus",
+    "update": "Perbarui",
+    "add": "Tambah",
+    "confirmDelete": "Konfirmasi Hapus",
+    "prevPage": "Sebelumnya",
+    "nextPage": "Berikutnya",
+    "all": "Semua",
+    "type": "Tipe",
+    "createdAt": "Dibuat Pada",
+    "error": {
+      "backendNotConnected": "Layanan backend tidak terhubung",
+      "startBackend": "Silakan jalankan layanan backend terlebih dahulu",
+      "backendConnectFailed": "Tidak dapat terhubung ke layanan backend. Pastikan backend sudah berjalan."
+    },
+    "toast": {
+      "operationFailed": "Operasi gagal",
+      "createSuccess": "Berhasil dibuat",
+      "createFailed": "Gagal membuat",
+      "updateSuccess": "Berhasil diperbarui",
+      "updateFailed": "Gagal memperbarui",
+      "deleteSuccess": "Berhasil dihapus",
+      "deleteFailed": "Gagal menghapus",
+      "uploadFailed": "Gagal mengunggah",
+      "saveSuccess": "Berhasil disimpan",
+      "saveFailed": "Gagal menyimpan",
+      "statusUpdated": "Status diperbarui",
+      "addSuccess": "Berhasil ditambahkan",
+      "addFailed": "Gagal menambahkan"
+    }
+  },
+  "nav": {
+    "appName": "AICS",
+    "appSubtitle": "Layanan Pelanggan AI",
+    "dashboard": "Dasbor",
+    "emailAccounts": "Integrasi",
+    "knowledge": "Basis Pengetahuan",
+    "intents": "Intensi",
+    "variables": "Variabel",
+    "tools": "Alat",
+    "agents": "Agen",
+    "safety": "Keamanan",
+    "tickets": "Tiket",
+    "settings": "Pengaturan",
+    "logout": "Keluar"
+  },
+  "login": {
+    "subtitle": "Manajemen Layanan Pelanggan AI",
+    "label": {
+      "email": "Email",
+      "password": "Kata Sandi"
+    },
+    "button": {
+      "login": "Masuk",
+      "loggingIn": "Sedang masuk..."
+    },
+    "validation": {
+      "emailPasswordRequired": "Silakan masukkan email dan kata sandi"
+    },
+    "toast": {
+      "loginSuccess": "Berhasil masuk"
+    },
+    "error": {
+      "loginFailed": "Gagal masuk",
+      "loginFailedCheck": "Gagal masuk, periksa email dan kata sandi Anda"
+    }
+  },
+  "dashboard": {
+    "title": "Dasbor",
+    "stats": {
+      "totalTickets": "Total Tiket",
+      "openTickets": "Tiket Terbuka",
+      "resolvedToday": "Diselesaikan Hari Ini",
+      "autoReplyRate": "Rasio Balasan Otomatis"
+    },
+    "chart": {
+      "volumeTrend": "Tren Volume Tiket",
+      "ticketCount": "Jumlah Tiket",
+      "intentDistribution": "Distribusi Intensi"
+    },
+    "error": {
+      "startBackend": "Silakan jalankan layanan backend: jalankan pnpm dev:server di direktori proyek"
+    }
+  },
+  "tickets": {
+    "title": "Tiket",
+    "list": {
+      "title": "Daftar Tiket"
+    },
+    "status": {
+      "pending": "Menunggu",
+      "processing": "Diproses",
+      "awaitingReply": "Menunggu Balasan",
+      "resolved": "Diselesaikan",
+      "closed": "Ditutup",
+      "transferred": "Dialihkan",
+      "escalated": "Dialihkan"
+    },
+    "table": {
+      "subject": "Subjek",
+      "customerEmail": "Email Pelanggan",
+      "source": "Sumber",
+      "status": "Status",
+      "assignedTo": "Ditugaskan Ke",
+      "createdAt": "Dibuat Pada",
+      "actions": "Aksi"
+    },
+    "button": {
+      "simulate": "Simulasi Email",
+      "sendSimulate": "Kirim Email Simulasi"
+    },
+    "dialog": {
+      "assignTitle": "Tugaskan Tiket",
+      "userId": "ID Pengguna",
+      "assignUserIdPlaceholder": "Masukkan ID pengguna untuk ditugaskan",
+      "simulateDesc": "Simulasi email pelanggan. Ini akan membuat tiket baru dan masuk ke pipeline pemrosesan.",
+      "senderEmail": "Email Pengirim",
+      "senderName": "Nama Pengirim",
+      "subject": "Subjek Email",
+      "body": "Isi Email",
+      "bodyPlaceholder": "Masukkan isi email simulasi..."
+    },
+    "simulate": {
+      "defaultName": "Pelanggan Uji",
+      "defaultSubject": "Email Uji - Pertanyaan Produk",
+      "defaultBody": "Halo, saya ingin mengetahui tentang produk Anda. Fitur apa saja yang tersedia dan berapa harganya?"
+    },
+    "toast": {
+      "assignSuccess": "Berhasil ditugaskan",
+      "assignFailed": "Gagal menugaskan",
+      "resolved": "Ditandai selesai",
+      "closed": "Ditutup",
+      "simulateSuccess": "Email simulasi terkirim, tiket akan dibuat otomatis",
+      "simulateFailed": "Gagal mengirim email simulasi",
+      "replySent": "Balasan terkirim",
+      "replyFailed": "Gagal mengirim balasan",
+      "retrySubmitted": "Percobaan ulang dikirim",
+      "retryFailed": "Percobaan ulang gagal"
+    },
+    "action": {
+      "viewTicket": "Lihat Tiket",
+      "resolve": "Selesaikan",
+      "close": "Tutup"
+    },
+    "detail": {
+      "noSubject": "Tanpa Subjek",
+      "source": "Sumber:",
+      "assignedTo": "Ditugaskan ke:",
+      "conversationTitle": "Percakapan",
+      "noConversation": "Belum ada catatan percakapan",
+      "sender": {
+        "customer": "Pelanggan"
+      },
+      "replyPlaceholder": "Ketik balasan Anda...",
+      "sendReply": "Kirim Balasan",
+      "ticketInfo": "Info Tiket",
+      "intent": "Intensi Terdeteksi",
+      "extractedVars": "Variabel Terekstrak",
+      "safetyFlags": "Tanda Keamanan",
+      "processingLog": "Log Pemrosesan",
+      "intentResult": "Intensi:",
+      "confidence": "Keyakinan",
+      "agentName": "Agen:"
+    },
+    "pipeline": {
+      "ingest": "Penerimaan",
+      "intent": "Pengenalan Intensi",
+      "variable": "Ekstraksi Variabel",
+      "agent": "Pemrosesan Agen",
+      "safety": "Pemeriksaan Keamanan",
+      "queued": "Dalam Antrean",
+      "completed": "Selesai",
+      "failed": "Gagal"
+    },
+    "error": {
+      "notFoundOrBackend": "Tiket tidak ditemukan atau layanan backend tidak terhubung"
+    },
+    "placeholder": {
+      "customerName": "Nama Pelanggan"
+    }
+  },
+  "knowledge": {
+    "title": "Basis Pengetahuan",
+    "label": {
+      "knowledgeBase": "Basis Pengetahuan",
+      "documents": "Dokumen",
+      "categoryName": "Nama Kategori",
+      "parentCategory": "Kategori Induk",
+      "entryTitle": "Judul Entri",
+      "entryContent": "Isi Entri"
+    },
+    "tree": {
+      "allKnowledge": "Semua Pengetahuan",
+      "uncategorized": "Tidak Berkategori"
+    },
+    "status": {
+      "pending": "Menunggu",
+      "processing": "Diproses",
+      "ready": "Dipublikasi",
+      "failed": "Gagal"
+    },
+    "type": {
+      "pdf": "PDF",
+      "word": "Word",
+      "excel": "Excel",
+      "txt": "Teks",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "richtext": "Tanya Jawab"
+    },
+    "action": {
+      "createBase": "Basis Pengetahuan Baru",
+      "addCategory": "Tambah Kategori",
+      "addTopCategory": "Kategori Utama Baru",
+      "addSubCategory": "Subkategori Baru",
+      "rename": "Ganti Nama",
+      "deleteCategory": "Hapus Kategori",
+      "deleteUncategorized": "Hapus Semua Tidak Berkategori"
+    },
+    "button": {
+      "upload": "Unggah File",
+      "create": "Buat Entri"
+    },
+    "table": {
+      "fileName": "Nama File",
+      "type": "Tipe",
+      "status": "Status",
+      "category": "Kategori",
+      "createdAt": "Dibuat Pada",
+      "actions": "Aksi"
+    },
+    "filter": {
+      "allType": "Semua Tipe",
+      "allStatus": "Semua Status",
+      "clear": "Hapus Filter"
+    },
+    "search": {
+      "placeholder": "Cari pengetahuan..."
+    },
+    "empty": {
+      "selectBase": "Silakan buat atau pilih basis pengetahuan terlebih dahulu",
+      "noMatch": "Tidak ada entri yang cocok",
+      "noKnowledge": "Belum ada entri. Unggah file atau buat entri."
+    },
+    "pagination": {
+      "total": "{count} total",
+      "selected": "{count} dipilih",
+      "perPage": "{count}/halaman"
+    },
+    "dialog": {
+      "createBase": "Basis Pengetahuan Baru",
+      "addCategory": "Kategori Baru",
+      "renameCategory": "Ganti Nama Kategori",
+      "createEntry": "Buat Entri",
+      "editEntry": "Edit Entri",
+      "docPreview": "Pratinjau Dokumen",
+      "docProcessing": "Dokumen sedang diproses, konten belum diekstrak...",
+      "noContent": "Dokumen ini tidak memiliki konten teks",
+      "viewChunks": "Lihat Potongan ({count})"
+    },
+    "placeholder": {
+      "baseName": "Nama basis pengetahuan",
+      "baseDesc": "Deskripsi (opsional)",
+      "categoryName": "Masukkan nama kategori",
+      "newName": "Masukkan nama baru",
+      "entryTitle": "Masukkan judul entri",
+      "qaFormat": "Q: Pertanyaan\nA: Jawaban\n\nMendukung beberapa pasang Tanya Jawab",
+      "editContent": "Edit konten entri..."
+    },
+    "stats": {
+      "docsAndCategories": "{docs} entri · {categories} kategori"
+    },
+    "confirm": {
+      "deleteDoc": "Hapus entri ini?",
+      "deleteCategory": "Hapus kategori \"{name}\" dan semua entrinya?",
+      "deleteUncategorized": "Hapus semua {count} entri tidak berkategori? Tindakan ini tidak dapat dibatalkan."
+    },
+    "toast": {
+      "createBaseSuccess": "Basis pengetahuan dibuat",
+      "deleteBaseSuccess": "Basis pengetahuan dihapus",
+      "createCategorySuccess": "Kategori dibuat",
+      "createCategoryFailed": "Gagal membuat kategori",
+      "renameSuccess": "Kategori diganti nama",
+      "deleteCategorySuccess": "Kategori dihapus",
+      "uploadSuccess": "Berhasil diunggah, diproses di latar belakang",
+      "createEntrySuccess": "Entri dibuat",
+      "deleteUncategorizedSuccess": "Semua entri tidak berkategori dihapus",
+      "updateSuccess": "Entri diperbarui",
+      "getDocFailed": "Gagal mengambil konten dokumen"
+    }
+  },
+  "intents": {
+    "title": "Intensi",
+    "list": {
+      "title": "Daftar Intensi"
+    },
+    "button": {
+      "create": "Intensi Baru",
+      "test": "Uji Intensi",
+      "recognize": "Kenali",
+      "recognizing": "Mengenali..."
+    },
+    "table": {
+      "name": "Nama",
+      "description": "Deskripsi",
+      "type": "Tipe",
+      "status": "Status",
+      "keywords": "Kata Kunci",
+      "boundAgent": "Agen Terikat",
+      "actions": "Aksi"
+    },
+    "badge": {
+      "system": "Sistem",
+      "custom": "Kustom"
+    },
+    "action": {
+      "bindAgent": "Ikat Agen"
+    },
+    "empty": "Belum ada intensi. Klik \"Intensi Baru\" untuk menambahkan.",
+    "dialog": {
+      "createTitle": "Intensi Kustom Baru",
+      "editSystemTitle": "Edit Intensi Sistem",
+      "editCustomTitle": "Edit Intensi Kustom",
+      "systemNameReadonly": "Nama intensi sistem tidak dapat diubah",
+      "bindTitle": "Ikat Agen",
+      "selectAgent": "Pilih Agen",
+      "testTitle": "Uji Pengenalan Intensi"
+    },
+    "label": {
+      "keywords": "Kata Kunci (dipisahkan koma)",
+      "exampleUtterances": "Contoh Ucapan (satu per baris)",
+      "testMessage": "Pesan Uji"
+    },
+    "placeholder": {
+      "name": "Nama intensi",
+      "description": "Deskripsi singkat",
+      "keywords": "pengembalian dana, retur, uang kembali",
+      "examples": "Saya ingin pengembalian dana\nBagaimana cara mengembalikan barang\nApa proses pengembalian dana",
+      "testMessage": "Masukkan pesan untuk mengenali intensi..."
+    },
+    "option": {
+      "noBind": "Tidak Ada"
+    },
+    "confirm": {
+      "delete": "Hapus intensi \"{name}\"? Tindakan ini tidak dapat dibatalkan."
+    },
+    "test": {
+      "result": "Hasil Pengenalan"
+    },
+    "toast": {
+      "bindSuccess": "Berhasil diikat",
+      "bindFailed": "Gagal mengikat",
+      "deleteFailedPreset": "Intensi sistem bawaan tidak dapat dihapus"
+    },
+    "validation": {
+      "nameRequired": "Silakan masukkan nama"
+    }
+  },
+  "variables": {
+    "title": "Variabel",
+    "list": {
+      "title": "Daftar Variabel"
+    },
+    "button": {
+      "create": "Variabel Baru"
+    },
+    "tabs": {
+      "all": "Semua ({count})",
+      "system": "Sistem ({count})",
+      "custom": "Kustom ({count})"
+    },
+    "table": {
+      "name": "Nama",
+      "displayName": "Nama Tampilan",
+      "dataType": "Tipe Data",
+      "extractionMethod": "Metode Ekstraksi",
+      "type": "Tipe",
+      "actions": "Aksi"
+    },
+    "badge": {
+      "system": "Sistem",
+      "custom": "Kustom"
+    },
+    "confirm": {
+      "delete": "Konfirmasi hapus?"
+    },
+    "dataType": {
+      "string": "Teks",
+      "number": "Angka",
+      "boolean": "Boolean",
+      "date": "Tanggal",
+      "email": "Email",
+      "list": "Daftar"
+    },
+    "extraction": {
+      "auto_sync": "Sinkron Otomatis",
+      "keyword": "Kata Kunci",
+      "llm": "LLM"
+    },
+    "dialog": {
+      "createTitle": "Variabel Baru",
+      "editTitle": "Edit Variabel"
+    },
+    "label": {
+      "name": "Nama Variabel (Inggris)",
+      "displayName": "Nama Tampilan",
+      "extractionConfig": "Konfigurasi Ekstraksi (JSON, opsional)"
+    },
+    "placeholder": {
+      "name": "mis. order_id",
+      "displayName": "mis. ID Pesanan",
+      "description": "Deskripsi (opsional)",
+      "extractionConfig": "'{'\"keywords\": [\"order_id\", \"order\"]'}'"
+    },
+    "validation": {
+      "nameRequired": "Silakan masukkan nama",
+      "displayNameRequired": "Silakan masukkan nama tampilan",
+      "dataTypeRequired": "Silakan pilih tipe data",
+      "extractionMethodRequired": "Silakan pilih metode ekstraksi"
+    }
+  },
+  "tools": {
+    "title": "Alat",
+    "subtitle": "Kelola alat API untuk agen memanggil antarmuka eksternal selama percakapan",
+    "button": {
+      "create": "Buat Alat",
+      "addParam": "Tambah Parameter",
+      "addMapping": "Tambah Pemetaan"
+    },
+    "table": {
+      "name": "Nama",
+      "displayName": "Nama Tampilan",
+      "type": "Tipe",
+      "method": "Metode",
+      "status": "Status",
+      "actions": "Aksi"
+    },
+    "empty": "Belum ada alat. Klik \"Buat Alat\" untuk memulai.",
+    "badge": {
+      "builtin": "Bawaan"
+    },
+    "section": {
+      "basic": "Info Dasar",
+      "api": "Konfigurasi API",
+      "auth": "Autentikasi",
+      "params": "Parameter",
+      "mapping": "Pemetaan Respons"
+    },
+    "label": {
+      "name": "Pengidentifikasi Alat",
+      "displayName": "Nama Tampilan",
+      "description": "Deskripsi",
+      "method": "Metode HTTP",
+      "url": "URL API",
+      "headers": "Header (JSON)",
+      "bodyTemplate": "Template Body (JSON)",
+      "timeout": "Batas Waktu (ms)",
+      "authType": "Tipe Autentikasi",
+      "bearerToken": "Bearer Token",
+      "authHeaderName": "Nama Header",
+      "authHeaderValue": "Nilai Header",
+      "username": "Nama Pengguna",
+      "password": "Kata Sandi",
+      "paramDescription": "Deskripsi",
+      "variableBinding": "Pengikatan Variabel",
+      "jsonPath": "Path JSON",
+      "targetVariable": "Variabel Target",
+      "required": "Wajib"
+    },
+    "placeholder": {
+      "displayName": "Cek Status Pesanan",
+      "description": "Digunakan untuk mengecek status pesanan pengguna, memerlukan ID pesanan sebagai parameter",
+      "paramDescription": "ID Pesanan"
+    },
+    "hint": {
+      "description": "Deskripsi ini diteruskan ke LLM untuk membantu memutuskan kapan memanggil alat ini",
+      "placeholders": "Mendukung placeholder '{'variable_name'}', otomatis diganti saat runtime",
+      "params": "Tentukan parameter input alat. Agen mengisinya secara otomatis dari konteks percakapan.",
+      "mapping": "Petakan field respons ke variabel sistem untuk digunakan dalam proses selanjutnya"
+    },
+    "paramType": {
+      "string": "String",
+      "number": "Angka",
+      "boolean": "Boolean",
+      "array": "Array",
+      "object": "Objek"
+    },
+    "auth": {
+      "none": "Tanpa Autentikasi",
+      "bearer": "Bearer Token",
+      "api_key": "API Key",
+      "basic": "Basic Auth"
+    },
+    "option": {
+      "none": "Tidak Ada"
+    },
+    "dialog": {
+      "createTitle": "Buat Alat",
+      "editTitle": "Edit Alat"
+    },
+    "empty_params": "Tidak ada parameter",
+    "empty_mapping": "Tidak ada pemetaan respons",
+    "test": {
+      "dialogTitle": "Tes Alat: {name}",
+      "inputParams": "Parameter Input",
+      "noParams": "Alat ini tidak memerlukan parameter input",
+      "binding": "Pengikatan:",
+      "executing": "Mengeksekusi...",
+      "sendRequest": "Kirim Permintaan Uji",
+      "request": "Permintaan",
+      "selectVariable": "Pilih Variabel"
+    },
+    "logs": {
+      "title": "Log Eksekusi",
+      "empty": "Tidak ada log eksekusi",
+      "ticket": "Tiket",
+      "agent": "Agen",
+      "inputParams": "Parameter Input",
+      "response": "Respons",
+      "error": "Error:"
+    },
+    "confirm": {
+      "delete": "Hapus alat ini?",
+      "deleteWithBindings": "Alat ini terikat ke {count} agen. Menghapus akan otomatis melepas ikatan. Lanjutkan?"
+    },
+    "toast": {
+      "createSuccess": "Alat dibuat",
+      "updateSuccess": "Alat diperbarui",
+      "deleteSuccess": "Alat dihapus"
+    },
+    "validation": {
+      "paramName": "Silakan masukkan nama parameter",
+      "paramType": "Silakan pilih tipe",
+      "jsonPath": "Silakan masukkan path JSON",
+      "variable": "Silakan pilih variabel",
+      "toolName": "Silakan masukkan pengidentifikasi alat",
+      "nameFormat": "Hanya huruf, angka, dan garis bawah",
+      "displayName": "Silakan masukkan nama tampilan",
+      "description": "Silakan masukkan deskripsi",
+      "url": "Silakan masukkan URL API"
+    }
+  },
+  "agents": {
+    "title": "Agen",
+    "list": {
+      "title": "Daftar Agen"
+    },
+    "button": {
+      "create": "Agen Baru"
+    },
+    "table": {
+      "name": "Nama",
+      "type": "Tipe",
+      "description": "Deskripsi",
+      "status": "Status",
+      "knowledgeBase": "Basis Pengetahuan",
+      "tools": "Alat",
+      "actions": "Aksi"
+    },
+    "type": {
+      "conversational": "Percakapan",
+      "workflow": "Alur Kerja"
+    },
+    "dialog": {
+      "createTitle": "Agen Baru",
+      "editTitle": "Edit Agen"
+    },
+    "label": {
+      "systemPrompt": "Prompt Sistem",
+      "temperature": "Suhu (0-2)",
+      "maxTokens": "Token Maksimum",
+      "knowledgeBase": "Basis Pengetahuan",
+      "tools": "Alat"
+    },
+    "placeholder": {
+      "name": "Nama agen",
+      "description": "Deskripsi singkat",
+      "systemPrompt": "Tentukan perilaku dan peran agen..."
+    },
+    "option": {
+      "none": "Tidak Ada"
+    },
+    "confirm": {
+      "delete": "Konfirmasi hapus?"
+    },
+    "empty": {
+      "noTools": "Tidak ada alat tersedia"
+    },
+    "hint": {
+      "tools": "Agen percakapan memanggil alat melalui Function Calling"
+    },
+    "toast": {
+      "duplicateSuccess": "Berhasil diduplikasi"
+    },
+    "validation": {
+      "nameRequired": "Silakan masukkan nama"
+    }
+  },
+  "safety": {
+    "title": "Keamanan",
+    "stats": {
+      "totalChecks": "Total Pemeriksaan",
+      "passRate": "Rasio Lulus",
+      "blockedCount": "Diblokir"
+    },
+    "tabs": {
+      "rules": "Aturan Keamanan",
+      "logs": "Log Keamanan"
+    },
+    "button": {
+      "add": "Tambah Aturan"
+    },
+    "checkType": {
+      "keyword": "Kata Kunci",
+      "regex": "Regex",
+      "llm": "Pemeriksaan LLM"
+    },
+    "severity": {
+      "low": "Rendah",
+      "medium": "Sedang",
+      "high": "Tinggi",
+      "critical": "Kritis"
+    },
+    "action": {
+      "warn": "Peringatan",
+      "block": "Blokir",
+      "transfer": "Alihkan"
+    },
+    "table": {
+      "name": "Nama",
+      "checkType": "Tipe Pemeriksaan",
+      "pattern": "Pola/Kata Kunci",
+      "severity": "Tingkat Keparahan",
+      "action": "Aksi",
+      "status": "Status",
+      "actions": "Aksi",
+      "ticketId": "ID Tiket",
+      "result": "Hasil",
+      "details": "Detail",
+      "time": "Waktu"
+    },
+    "result": {
+      "passed": "Lulus",
+      "failed": "Gagal"
+    },
+    "dialog": {
+      "addTitle": "Tambah Aturan Keamanan",
+      "editTitle": "Edit Aturan Keamanan"
+    },
+    "label": {
+      "pattern": "Pola/Kata Kunci"
+    },
+    "placeholder": {
+      "name": "Nama aturan",
+      "description": "Deskripsi (opsional)",
+      "pattern": "Kata kunci atau regex"
+    },
+    "hint": {
+      "builtinRule": "Aturan bawaan hanya dapat diubah tingkat keparahan dan aksinya"
+    },
+    "validation": {
+      "nameRequired": "Silakan masukkan nama",
+      "checkTypeRequired": "Silakan pilih tipe pemeriksaan"
+    }
+  },
+  "pipeline": {
+    "title": "Pipeline Pemrosesan",
+    "section": {
+      "records": "Catatan Pemrosesan",
+      "config": "Konfigurasi Pipeline"
+    },
+    "status": {
+      "queued": "Dalam Antrean",
+      "ingesting": "Menerima",
+      "recognizing_intent": "Mengenali Intensi",
+      "extracting_variables": "Mengekstrak Variabel",
+      "agent_processing": "Pemrosesan Agen",
+      "safety_checking": "Pemeriksaan Keamanan",
+      "completed": "Selesai",
+      "failed": "Gagal"
+    },
+    "label": {
+      "statusFilter": "Filter Status"
+    },
+    "table": {
+      "ticketId": "ID Tiket",
+      "stage": "Tahap",
+      "status": "Status",
+      "duration": "Durasi",
+      "createdAt": "Dibuat Pada",
+      "actions": "Aksi"
+    },
+    "config": {
+      "enabled": "Aktifkan Pemrosesan Otomatis",
+      "autoReply": "Balasan Otomatis",
+      "maxRetries": "Percobaan Ulang Maks",
+      "concurrency": "Konkurensi"
+    },
+    "toast": {
+      "retrySubmitted": "Percobaan ulang dikirim",
+      "retryFailed": "Percobaan ulang gagal",
+      "configUpdated": "Konfigurasi diperbarui"
+    }
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "section": {
+      "llm": "Konfigurasi LLM",
+      "llmDesc": "Konfigurasi API LLM dan model default. Mendukung OpenAI, DeepSeek, Zhipu, dan layanan kompatibel.",
+      "global": "Pengaturan Global",
+      "globalDesc": "Pengaturan dan perilaku tingkat sistem",
+      "pipeline": "Konfigurasi Pipeline",
+      "pipelineDesc": "Parameter pipeline pemrosesan tiket (Intensi → Ekstraksi Variabel → Balasan Agen → Pemeriksaan Keamanan)"
+    },
+    "providers": {
+      "openai": "OpenAI",
+      "deepseek": "DeepSeek",
+      "zhipu": "Zhipu GLM",
+      "moonshot": "Moonshot (Kimi)",
+      "custom": "Kustom (Kompatibel OpenAI)",
+      "deepseekNote": "DeepSeek tidak menyediakan API Embedding. Gunakan penyedia lain untuk embedding atau kosongkan (pencarian kata kunci akan digunakan).",
+      "moonshotNote": "Moonshot tidak menyediakan API Embedding"
+    },
+    "label": {
+      "provider": "Penyedia",
+      "apiBaseUrl": "URL Dasar API",
+      "apiKey": "API Key",
+      "chatModel": "Model Chat",
+      "embeddingModel": "Model Embedding",
+      "emailPolling": "Interval Polling Email (detik)",
+      "autoLearning": "Pembelajaran Otomatis (belajar dari balasan manual)",
+      "pipelineAutoReply": "Aktifkan Balasan Otomatis (kirim otomatis setelah lulus pemeriksaan keamanan)",
+      "maxRetries": "Percobaan Ulang Maks"
+    },
+    "placeholder": {
+      "modelName": "Nama model"
+    },
+    "option": {
+      "customModel": "Kustom: {model}"
+    },
+    "hint": {
+      "apiBaseUrl": "Masukkan endpoint API yang kompatibel dengan OpenAI",
+      "apiKey": "Kosongkan untuk mempertahankan kunci yang ada",
+      "noEmbedding": "Penyedia ini tidak menawarkan embedding. Kosongkan saja.",
+      "embeddingUsage": "Digunakan untuk pencarian semantik basis pengetahuan. Kosongkan untuk pencarian kata kunci.",
+      "maxRetries": "Percobaan ulang maks saat tahap pipeline gagal"
+    },
+    "button": {
+      "saveLlm": "Simpan Konfigurasi LLM",
+      "saveGlobal": "Simpan Pengaturan Global",
+      "savePipeline": "Simpan Konfigurasi Pipeline"
+    },
+    "toast": {
+      "pipelineSaved": "Konfigurasi pipeline disimpan",
+      "settingsSaved": "Pengaturan disimpan",
+      "modelAutoCorrected": "Konfigurasi model dikoreksi otomatis: {details}"
+    }
+  },
+  "integrations": {
+    "title": "Integrasi",
+    "subtitle": "Hubungkan layanan eksternal untuk memperluas kemampuan sistem",
+    "tabs": {
+      "all": "Semua",
+      "channel": "Kanal",
+      "tools": "Alat"
+    },
+    "status": {
+      "connected": "Terhubung",
+      "notConnected": "Tidak Terhubung",
+      "comingSoon": "Segera Hadir"
+    },
+    "email": {
+      "name": "Email",
+      "description": "Hubungkan akun email untuk menerima dan membalas email pelanggan secara otomatis"
+    },
+    "api": {
+      "name": "API",
+      "description": "Integrasikan sistem eksternal melalui REST API untuk mengirim pesan dan membuat tiket"
+    },
+    "livechat": {
+      "name": "LiveChat",
+      "description": "Sematkan widget obrolan langsung di situs web untuk percakapan pengunjung real-time"
+    },
+    "wechat": {
+      "name": "WeChat Official",
+      "description": "Hubungkan Akun Resmi WeChat untuk menangani pesan pengikut"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "description": "Integrasikan WhatsApp Business API untuk menangani percakapan pelanggan"
+    },
+    "line": {
+      "name": "LINE",
+      "description": "Hubungkan LINE Messaging API untuk menangani pesan pengguna LINE"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "description": "Integrasikan Telegram Bot untuk menangani percakapan pengguna Telegram"
+    },
+    "slack": {
+      "name": "Slack",
+      "description": "Integrasikan ruang kerja Slack untuk menangani tiket di kanal Slack"
+    },
+    "teams": {
+      "name": "Teams",
+      "description": "Integrasikan Microsoft Teams untuk menangani percakapan pelanggan di Teams"
+    },
+    "shopify": {
+      "name": "Shopify",
+      "description": "Hubungkan toko Shopify untuk menangani pertanyaan produk dan pengiriman"
+    },
+    "webhook": {
+      "name": "Webhook",
+      "description": "Terima notifikasi acara dari sistem eksternal melalui Webhook"
+    },
+    "manage": "Kelola",
+    "configure": "Konfigurasi",
+    "accountCount": "{count} akun"
+  },
+  "emailAccounts": {
+    "title": "Akun Email",
+    "list": {
+      "title": "Daftar Akun"
+    },
+    "button": {
+      "add": "Tambah Akun",
+      "submitAdd": "Tambah"
+    },
+    "table": {
+      "name": "Nama",
+      "email": "Email",
+      "provider": "Penyedia",
+      "status": "Status",
+      "lastSync": "Sinkron Terakhir",
+      "actions": "Aksi"
+    },
+    "status": {
+      "enabled": "Aktif",
+      "disabled": "Nonaktif"
+    },
+    "providers": {
+      "gmail": "Gmail",
+      "outlook": "Outlook",
+      "163": "NetEase 163",
+      "qq": "QQ Mail",
+      "custom": "Kustom"
+    },
+    "dialog": {
+      "addTitle": "Tambah Akun Email",
+      "editTitle": "Edit Akun Email"
+    },
+    "label": {
+      "displayName": "Nama Tampilan",
+      "email": "Alamat Email",
+      "provider": "Penyedia",
+      "imapHost": "Host IMAP",
+      "imapPort": "Port IMAP",
+      "smtpHost": "Host SMTP",
+      "smtpPort": "Port SMTP",
+      "password": "Kata Sandi/Kode Otorisasi"
+    },
+    "placeholder": {
+      "displayName": "mis. Kotak Masuk Dukungan",
+      "passwordOptional": "Kosongkan untuk mempertahankan yang ada"
+    },
+    "validation": {
+      "displayName": "Silakan masukkan nama tampilan",
+      "email": "Silakan masukkan email yang valid",
+      "provider": "Silakan pilih penyedia",
+      "password": "Silakan masukkan kata sandi/kode otorisasi",
+      "imapHost": "Silakan masukkan host IMAP",
+      "smtpHost": "Silakan masukkan host SMTP"
+    },
+    "action": {
+      "testConnection": "Tes Koneksi",
+      "enable": "Aktifkan",
+      "disable": "Nonaktifkan"
+    },
+    "confirm": {
+      "delete": "Konfirmasi hapus?"
+    },
+    "toast": {
+      "testSuccess": "Tes koneksi berhasil",
+      "testFailed": "Tes koneksi gagal",
+      "addSuccess": "Berhasil ditambahkan",
+      "addFailed": "Gagal menambahkan",
+      "updateSuccess": "Berhasil diperbarui",
+      "updateFailed": "Gagal memperbarui",
+      "statusUpdated": "Status diperbarui",
+      "deleted": "Dihapus"
+    }
+  }
+}

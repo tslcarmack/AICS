@@ -1,0 +1,31 @@
+{
+  "ticket": {
+    "notFound": "Tiket tidak ditemukan"
+  },
+  "safety": {
+    "cannotDeleteBuiltin": "Tidak dapat menghapus aturan bawaan",
+    "ruleNotFound": "Aturan keamanan tidak ditemukan"
+  },
+  "integration": {
+    "accountNotFound": "Akun email tidak ditemukan",
+    "imapFailed": "Koneksi IMAP gagal: {error}",
+    "smtpFailed": "Koneksi SMTP gagal: {error}",
+    "connectionTestPassed": "Tes koneksi IMAP dan SMTP berhasil",
+    "simulatedEmailSubject": "(Email Simulasi)"
+  },
+  "auth": {
+    "emailRegistered": "Email sudah terdaftar",
+    "invalidCredentials": "Kredensial tidak valid",
+    "userNotFound": "Pengguna tidak ditemukan"
+  },
+  "settings": {
+    "llmApiKeyNotConfigured": "API Key LLM belum dikonfigurasi. Silakan atur di Pengaturan Sistem atau .env"
+  },
+  "validation": {
+    "badRequest": "Permintaan tidak valid",
+    "unauthorized": "Tidak terotorisasi",
+    "forbidden": "Akses ditolak",
+    "notFound": "Sumber daya tidak ditemukan",
+    "internalError": "Kesalahan server internal"
+  }
+}

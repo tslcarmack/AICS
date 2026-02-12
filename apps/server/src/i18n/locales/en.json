@@ -1,0 +1,31 @@
+{
+  "ticket": {
+    "notFound": "Ticket not found"
+  },
+  "safety": {
+    "cannotDeleteBuiltin": "Cannot delete built-in rules",
+    "ruleNotFound": "Safety rule not found"
+  },
+  "integration": {
+    "accountNotFound": "Email account not found",
+    "imapFailed": "IMAP connection failed: {error}",
+    "smtpFailed": "SMTP connection failed: {error}",
+    "connectionTestPassed": "IMAP and SMTP connection test passed",
+    "simulatedEmailSubject": "(Simulated Email)"
+  },
+  "auth": {
+    "emailRegistered": "Email already registered",
+    "invalidCredentials": "Invalid credentials",
+    "userNotFound": "User not found"
+  },
+  "settings": {
+    "llmApiKeyNotConfigured": "LLM API Key not configured. Please set it in System Settings or .env"
+  },
+  "validation": {
+    "badRequest": "Bad request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "notFound": "Resource not found",
+    "internalError": "Internal server error"
+  }
+}

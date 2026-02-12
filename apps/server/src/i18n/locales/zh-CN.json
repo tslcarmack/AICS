@@ -1,0 +1,31 @@
+{
+  "ticket": {
+    "notFound": "工单未找到"
+  },
+  "safety": {
+    "cannotDeleteBuiltin": "无法删除内置规则",
+    "ruleNotFound": "安全规则未找到"
+  },
+  "integration": {
+    "accountNotFound": "邮箱账号未找到",
+    "imapFailed": "IMAP 连接失败: {error}",
+    "smtpFailed": "SMTP 连接失败: {error}",
+    "connectionTestPassed": "IMAP 和 SMTP 连接测试通过",
+    "simulatedEmailSubject": "(模拟邮件)"
+  },
+  "auth": {
+    "emailRegistered": "邮箱已注册",
+    "invalidCredentials": "用户名或密码错误",
+    "userNotFound": "用户未找到"
+  },
+  "settings": {
+    "llmApiKeyNotConfigured": "LLM API Key 未配置，请在系统设置或 .env 中设置"
+  },
+  "validation": {
+    "badRequest": "请求参数错误",
+    "unauthorized": "未授权",
+    "forbidden": "禁止访问",
+    "notFound": "资源未找到",
+    "internalError": "内部服务器错误"
+  }
+}

@@ -1,0 +1,925 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "confirm": "OK",
+    "create": "Create",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close",
+    "back": "Back",
+    "retry": "Retry",
+    "name": "Name",
+    "description": "Description",
+    "status": "Status",
+    "actions": "Actions",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "success": "Success",
+    "failed": "Failed",
+    "saving": "Saving...",
+    "creating": "Creating...",
+    "deleting": "Deleting...",
+    "sending": "Sending...",
+    "uploading": "Uploading...",
+    "deleted": "Deleted",
+    "update": "Update",
+    "add": "Add",
+    "confirmDelete": "Confirm Delete",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "all": "All",
+    "type": "Type",
+    "createdAt": "Created At",
+    "error": {
+      "backendNotConnected": "Backend service not connected",
+      "startBackend": "Please start the backend service first",
+      "backendConnectFailed": "Cannot connect to backend service. Please confirm the backend is running."
+    },
+    "toast": {
+      "operationFailed": "Operation failed",
+      "createSuccess": "Created successfully",
+      "createFailed": "Failed to create",
+      "updateSuccess": "Updated successfully",
+      "updateFailed": "Failed to update",
+      "deleteSuccess": "Deleted successfully",
+      "deleteFailed": "Failed to delete",
+      "uploadFailed": "Failed to upload",
+      "saveSuccess": "Saved successfully",
+      "saveFailed": "Failed to save",
+      "statusUpdated": "Status updated",
+      "addSuccess": "Added successfully",
+      "addFailed": "Failed to add"
+    }
+  },
+  "nav": {
+    "appName": "AICS",
+    "appSubtitle": "AI Customer Service",
+    "dashboard": "Dashboard",
+    "emailAccounts": "Integrations",
+    "knowledge": "Knowledge Base",
+    "intents": "Intents",
+    "variables": "Variables",
+    "tools": "Tools",
+    "agents": "Agents",
+    "safety": "Safety",
+    "tickets": "Tickets",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "login": {
+    "subtitle": "AI Customer Service Management",
+    "label": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "button": {
+      "login": "Login",
+      "loggingIn": "Logging in..."
+    },
+    "validation": {
+      "emailPasswordRequired": "Please enter email and password"
+    },
+    "toast": {
+      "loginSuccess": "Login successful"
+    },
+    "error": {
+      "loginFailed": "Login failed",
+      "loginFailedCheck": "Login failed, please check your email and password"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "stats": {
+      "totalTickets": "Total Tickets",
+      "openTickets": "Open Tickets",
+      "resolvedToday": "Resolved Today",
+      "autoReplyRate": "Auto Reply Rate"
+    },
+    "chart": {
+      "volumeTrend": "Ticket Volume Trend",
+      "ticketCount": "Tickets",
+      "intentDistribution": "Intent Distribution"
+    },
+    "error": {
+      "startBackend": "Please start the backend service: run pnpm dev:server in the project directory"
+    }
+  },
+  "tickets": {
+    "title": "Tickets",
+    "list": {
+      "title": "Ticket List"
+    },
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "awaitingReply": "Awaiting Reply",
+      "awaiting_reply": "Awaiting Reply",
+      "resolved": "Resolved",
+      "closed": "Closed",
+      "transferred": "Transferred",
+      "escalated": "Escalated"
+    },
+    "table": {
+      "subject": "Subject",
+      "customerEmail": "Customer Email",
+      "source": "Source",
+      "status": "Status",
+      "assignedTo": "Assigned To",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "button": {
+      "simulate": "Simulate Email",
+      "sendSimulate": "Send Simulated Email"
+    },
+    "dialog": {
+      "assignTitle": "Assign Ticket",
+      "userId": "User ID",
+      "assignUserIdPlaceholder": "Enter user ID to assign",
+      "simulateDesc": "Simulate a customer email. This will create a new ticket and enter the processing pipeline.",
+      "senderEmail": "Sender Email",
+      "senderName": "Sender Name",
+      "subject": "Email Subject",
+      "body": "Email Body",
+      "bodyPlaceholder": "Enter simulated email body..."
+    },
+    "simulate": {
+      "defaultName": "Test Customer",
+      "defaultSubject": "Test Email - Product Inquiry",
+      "defaultBody": "Hello, I would like to learn about your products. What features do you offer and what is the pricing?"
+    },
+    "toast": {
+      "assignSuccess": "Assigned successfully",
+      "assignFailed": "Failed to assign",
+      "resolved": "Marked as resolved",
+      "closed": "Closed",
+      "simulateSuccess": "Simulated email sent, ticket will be created automatically",
+      "simulateFailed": "Failed to send simulated email",
+      "replySent": "Reply sent",
+      "replyFailed": "Failed to send reply",
+      "retrySubmitted": "Retry submitted",
+      "retryFailed": "Retry failed"
+    },
+    "action": {
+      "viewTicket": "View Ticket",
+      "resolve": "Resolve",
+      "close": "Close"
+    },
+    "detail": {
+      "noSubject": "No Subject",
+      "source": "Source:",
+      "assignedTo": "Assigned to:",
+      "conversationTitle": "Conversation",
+      "noConversation": "No conversation records yet",
+      "sender": {
+        "customer": "Customer"
+      },
+      "replyPlaceholder": "Type your reply...",
+      "sendReply": "Send Reply",
+      "ticketInfo": "Ticket Info",
+      "intent": "Detected Intent",
+      "extractedVars": "Extracted Variables",
+      "safetyFlags": "Safety Flags",
+      "processingLog": "Processing Log",
+      "intentResult": "Intent:",
+      "confidence": "Confidence",
+      "agentName": "Agent:"
+    },
+    "pipeline": {
+      "ingest": "Ingest",
+      "intent": "Intent Recognition",
+      "variable": "Variable Extraction",
+      "agent": "Agent Processing",
+      "safety": "Safety Check",
+      "queued": "Queued",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed",
+      "escalated": "Transferred"
+    },
+    "error": {
+      "notFoundOrBackend": "Ticket not found or backend service not connected"
+    },
+    "placeholder": {
+      "customerName": "Customer Name"
+    }
+  },
+  "knowledge": {
+    "title": "Knowledge Base",
+    "label": {
+      "knowledgeBase": "Knowledge Base",
+      "documents": "Documents",
+      "categoryName": "Category Name",
+      "parentCategory": "Parent Category",
+      "entryTitle": "Entry Title",
+      "entryContent": "Entry Content"
+    },
+    "tree": {
+      "allKnowledge": "All Knowledge",
+      "uncategorized": "Uncategorized"
+    },
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "ready": "Published",
+      "failed": "Failed"
+    },
+    "type": {
+      "pdf": "PDF",
+      "word": "Word",
+      "excel": "Excel",
+      "txt": "Text",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "richtext": "Q&A"
+    },
+    "action": {
+      "createBase": "New Knowledge Base",
+      "addCategory": "Add Category",
+      "addTopCategory": "New Top Category",
+      "addSubCategory": "New Subcategory",
+      "rename": "Rename",
+      "deleteCategory": "Delete Category",
+      "deleteUncategorized": "Delete All Uncategorized"
+    },
+    "button": {
+      "upload": "Upload File",
+      "create": "Create Entry"
+    },
+    "table": {
+      "fileName": "File Name",
+      "type": "Type",
+      "status": "Status",
+      "category": "Category",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "filter": {
+      "allType": "All Types",
+      "allStatus": "All Statuses",
+      "clear": "Clear Filters"
+    },
+    "search": {
+      "placeholder": "Search knowledge..."
+    },
+    "empty": {
+      "selectBase": "Please create or select a knowledge base first",
+      "noMatch": "No matching entries",
+      "noKnowledge": "No entries yet. Upload a file or create an entry."
+    },
+    "pagination": {
+      "total": "{count} total",
+      "selected": "{count} selected",
+      "perPage": "{count}/page"
+    },
+    "dialog": {
+      "createBase": "New Knowledge Base",
+      "addCategory": "New Category",
+      "renameCategory": "Rename Category",
+      "createEntry": "Create Entry",
+      "editEntry": "Edit Entry",
+      "docPreview": "Document Preview",
+      "docProcessing": "Document is being processed, content not yet extracted...",
+      "noContent": "This document has no text content",
+      "viewChunks": "View Chunks ({count})"
+    },
+    "placeholder": {
+      "baseName": "Knowledge base name",
+      "baseDesc": "Description (optional)",
+      "categoryName": "Enter category name",
+      "newName": "Enter new name",
+      "entryTitle": "Enter entry title",
+      "qaFormat": "Q: Question\nA: Answer\n\nSupports multiple Q&A pairs",
+      "editContent": "Edit entry content..."
+    },
+    "stats": {
+      "docsAndCategories": "{docs} entries · {categories} categories"
+    },
+    "confirm": {
+      "deleteDoc": "Delete this entry?",
+      "deleteCategory": "Delete category \"{name}\" and all its entries?",
+      "deleteUncategorized": "Delete all {count} uncategorized entries? This cannot be undone."
+    },
+    "toast": {
+      "createBaseSuccess": "Knowledge base created",
+      "deleteBaseSuccess": "Knowledge base deleted",
+      "createCategorySuccess": "Category created",
+      "createCategoryFailed": "Failed to create category",
+      "renameSuccess": "Category renamed",
+      "deleteCategorySuccess": "Category deleted",
+      "uploadSuccess": "Upload successful, processing in background",
+      "createEntrySuccess": "Entry created",
+      "deleteUncategorizedSuccess": "All uncategorized entries deleted",
+      "updateSuccess": "Entry updated",
+      "getDocFailed": "Failed to fetch document content"
+    }
+  },
+  "intents": {
+    "title": "Intents",
+    "list": {
+      "title": "Intent List"
+    },
+    "button": {
+      "create": "New Intent",
+      "test": "Test Intent",
+      "recognize": "Recognize",
+      "recognizing": "Recognizing..."
+    },
+    "table": {
+      "name": "Name",
+      "description": "Description",
+      "type": "Type",
+      "status": "Status",
+      "keywords": "Keywords",
+      "boundAgent": "Bound Agent",
+      "actions": "Actions"
+    },
+    "badge": {
+      "system": "System",
+      "custom": "Custom"
+    },
+    "action": {
+      "bindAgent": "Bind Agent"
+    },
+    "empty": "No intents yet. Click \"New Intent\" to add one.",
+    "dialog": {
+      "createTitle": "New Custom Intent",
+      "editSystemTitle": "Edit System Intent",
+      "editCustomTitle": "Edit Custom Intent",
+      "systemNameReadonly": "System intent name cannot be modified",
+      "bindTitle": "Bind Agent",
+      "selectAgent": "Select Agent",
+      "testTitle": "Intent Recognition Test"
+    },
+    "label": {
+      "keywords": "Keywords (comma-separated)",
+      "exampleUtterances": "Example Utterances (one per line)",
+      "testMessage": "Test Message"
+    },
+    "placeholder": {
+      "name": "Intent name",
+      "description": "Brief description",
+      "keywords": "refund, return, money back",
+      "examples": "I want a refund\nHow to return an item\nWhat is the refund process",
+      "testMessage": "Enter a message to recognize intent..."
+    },
+    "option": {
+      "noBind": "None"
+    },
+    "confirm": {
+      "delete": "Delete intent \"{name}\"? This cannot be undone."
+    },
+    "test": {
+      "result": "Recognition Result"
+    },
+    "toast": {
+      "bindSuccess": "Bound successfully",
+      "bindFailed": "Failed to bind",
+      "deleteFailedPreset": "System preset intents cannot be deleted"
+    },
+    "validation": {
+      "nameRequired": "Please enter a name"
+    }
+  },
+  "variables": {
+    "title": "Variables",
+    "list": {
+      "title": "Variable List"
+    },
+    "button": {
+      "create": "New Variable"
+    },
+    "tabs": {
+      "all": "All ({count})",
+      "system": "System ({count})",
+      "custom": "Custom ({count})"
+    },
+    "table": {
+      "name": "Name",
+      "displayName": "Display Name",
+      "dataType": "Data Type",
+      "extractionMethod": "Extraction Method",
+      "type": "Type",
+      "actions": "Actions"
+    },
+    "badge": {
+      "system": "System",
+      "custom": "Custom"
+    },
+    "confirm": {
+      "delete": "Confirm delete?"
+    },
+    "dataType": {
+      "string": "String",
+      "number": "Number",
+      "boolean": "Boolean",
+      "date": "Date",
+      "email": "Email",
+      "list": "List"
+    },
+    "extraction": {
+      "auto_sync": "Auto Sync",
+      "keyword": "Keyword",
+      "llm": "LLM"
+    },
+    "dialog": {
+      "createTitle": "New Variable",
+      "editTitle": "Edit Variable"
+    },
+    "label": {
+      "name": "Variable Name (English)",
+      "displayName": "Display Name",
+      "extractionConfig": "Extraction Config (JSON, optional)"
+    },
+    "placeholder": {
+      "name": "e.g. order_id",
+      "displayName": "e.g. Order ID",
+      "description": "Description (optional)",
+      "extractionConfig": "'{'\"keywords\": [\"order_id\", \"order\"]'}'"
+    },
+    "validation": {
+      "nameRequired": "Please enter a name",
+      "displayNameRequired": "Please enter a display name",
+      "dataTypeRequired": "Please select a data type",
+      "extractionMethodRequired": "Please select an extraction method"
+    }
+  },
+  "tools": {
+    "title": "Tools",
+    "subtitle": "Manage API tools for agents to call external interfaces during conversations",
+    "button": {
+      "create": "Create Tool",
+      "addParam": "Add Parameter",
+      "addMapping": "Add Mapping"
+    },
+    "table": {
+      "name": "Name",
+      "displayName": "Display Name",
+      "type": "Type",
+      "method": "Method",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "empty": "No tools yet. Click \"Create Tool\" to get started.",
+    "badge": {
+      "builtin": "Built-in"
+    },
+    "section": {
+      "basic": "Basic Info",
+      "api": "API Configuration",
+      "auth": "Authentication",
+      "params": "Parameters",
+      "mapping": "Response Mapping"
+    },
+    "label": {
+      "name": "Tool Identifier",
+      "displayName": "Display Name",
+      "description": "Description",
+      "method": "HTTP Method",
+      "url": "API URL",
+      "headers": "Headers (JSON)",
+      "bodyTemplate": "Body Template (JSON)",
+      "timeout": "Timeout (ms)",
+      "authType": "Auth Type",
+      "bearerToken": "Bearer Token",
+      "authHeaderName": "Header Name",
+      "authHeaderValue": "Header Value",
+      "username": "Username",
+      "password": "Password",
+      "paramDescription": "Description",
+      "variableBinding": "Variable Binding",
+      "jsonPath": "JSON Path",
+      "targetVariable": "Target Variable",
+      "required": "Required"
+    },
+    "placeholder": {
+      "displayName": "Query Order Status",
+      "paramDescription": "Order ID",
+      "description": "Used to query user order status, requires order ID as parameter"
+    },
+    "hint": {
+      "description": "This description is passed to the LLM to help it decide when to call this tool",
+      "placeholders": "Supports '{'variable_name'}' placeholders, auto-replaced at runtime",
+      "params": "Define tool input parameters. The agent fills them automatically from conversation context.",
+      "mapping": "Map response fields to system variables for use in subsequent processes"
+    },
+    "paramType": {
+      "string": "String",
+      "number": "Number",
+      "boolean": "Boolean",
+      "array": "Array",
+      "object": "Object"
+    },
+    "auth": {
+      "none": "No Auth",
+      "bearer": "Bearer Token",
+      "api_key": "API Key",
+      "basic": "Basic Auth"
+    },
+    "option": {
+      "none": "None"
+    },
+    "dialog": {
+      "createTitle": "Create Tool",
+      "editTitle": "Edit Tool"
+    },
+    "empty_params": "No parameters",
+    "empty_mapping": "No response mappings",
+    "test": {
+      "dialogTitle": "Test Tool: {name}",
+      "inputParams": "Input Parameters",
+      "noParams": "This tool requires no input parameters",
+      "binding": "Binding:",
+      "executing": "Executing...",
+      "sendRequest": "Send Test Request",
+      "request": "Request",
+      "selectVariable": "Select Variable"
+    },
+    "logs": {
+      "title": "Execution Logs",
+      "empty": "No execution logs",
+      "ticket": "Ticket",
+      "agent": "Agent",
+      "inputParams": "Input Parameters",
+      "response": "Response",
+      "error": "Error:"
+    },
+    "confirm": {
+      "delete": "Delete this tool?",
+      "deleteWithBindings": "This tool is bound to {count} agent(s). Deleting will automatically unbind. Continue?"
+    },
+    "toast": {
+      "createSuccess": "Tool created",
+      "updateSuccess": "Tool updated",
+      "deleteSuccess": "Tool deleted"
+    },
+    "validation": {
+      "paramName": "Please enter parameter name",
+      "paramType": "Please select type",
+      "jsonPath": "Please enter JSON path",
+      "variable": "Please select variable",
+      "toolName": "Please enter tool identifier",
+      "nameFormat": "Only English letters, numbers, and underscores",
+      "displayName": "Please enter display name",
+      "description": "Please enter description",
+      "url": "Please enter API URL"
+    }
+  },
+  "agents": {
+    "title": "Agents",
+    "list": {
+      "title": "Agent List"
+    },
+    "button": {
+      "create": "New Agent"
+    },
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "description": "Description",
+      "status": "Status",
+      "knowledgeBase": "Knowledge Base",
+      "tools": "Tools",
+      "actions": "Actions"
+    },
+    "type": {
+      "conversational": "Conversational",
+      "workflow": "Workflow"
+    },
+    "dialog": {
+      "createTitle": "New Agent",
+      "editTitle": "Edit Agent"
+    },
+    "label": {
+      "systemPrompt": "System Prompt",
+      "temperature": "Temperature (0-2)",
+      "maxTokens": "Max Tokens",
+      "knowledgeBase": "Knowledge Base",
+      "tools": "Tools"
+    },
+    "placeholder": {
+      "name": "Agent name",
+      "description": "Brief description",
+      "systemPrompt": "Define the agent's behavior and role..."
+    },
+    "option": {
+      "none": "None"
+    },
+    "confirm": {
+      "delete": "Confirm delete?"
+    },
+    "empty": {
+      "noTools": "No tools available"
+    },
+    "hint": {
+      "tools": "Conversational agents call tools via Function Calling"
+    },
+    "toast": {
+      "duplicateSuccess": "Duplicated successfully"
+    },
+    "validation": {
+      "nameRequired": "Please enter a name"
+    }
+  },
+  "safety": {
+    "title": "Safety",
+    "stats": {
+      "totalChecks": "Total Checks",
+      "passRate": "Pass Rate",
+      "blockedCount": "Blocked"
+    },
+    "tabs": {
+      "rules": "Safety Rules",
+      "logs": "Safety Logs"
+    },
+    "button": {
+      "add": "Add Rule"
+    },
+    "checkType": {
+      "keyword": "Keyword",
+      "regex": "Regex",
+      "llm": "LLM Check"
+    },
+    "severity": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "action": {
+      "warn": "Warn",
+      "block": "Block",
+      "transfer": "Transfer"
+    },
+    "table": {
+      "name": "Name",
+      "checkType": "Check Type",
+      "pattern": "Pattern/Keywords",
+      "severity": "Severity",
+      "action": "Action",
+      "status": "Status",
+      "actions": "Actions",
+      "ticketId": "Ticket ID",
+      "result": "Result",
+      "details": "Details",
+      "time": "Time"
+    },
+    "result": {
+      "passed": "Passed",
+      "failed": "Failed"
+    },
+    "dialog": {
+      "addTitle": "Add Safety Rule",
+      "editTitle": "Edit Safety Rule"
+    },
+    "label": {
+      "pattern": "Pattern/Keywords"
+    },
+    "placeholder": {
+      "name": "Rule name",
+      "description": "Description (optional)",
+      "pattern": "Keyword or regex"
+    },
+    "hint": {
+      "builtinRule": "Built-in rules only allow modifying severity and action"
+    },
+    "validation": {
+      "nameRequired": "Please enter a name",
+      "checkTypeRequired": "Please select a check type"
+    }
+  },
+  "pipeline": {
+    "title": "Processing Pipeline",
+    "section": {
+      "records": "Processing Records",
+      "config": "Pipeline Configuration"
+    },
+    "status": {
+      "queued": "Queued",
+      "ingesting": "Ingesting",
+      "recognizing_intent": "Recognizing Intent",
+      "extracting_variables": "Extracting Variables",
+      "agent_processing": "Agent Processing",
+      "safety_checking": "Safety Checking",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "label": {
+      "statusFilter": "Status Filter"
+    },
+    "table": {
+      "ticketId": "Ticket ID",
+      "stage": "Stage",
+      "status": "Status",
+      "duration": "Duration",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "config": {
+      "enabled": "Enable Auto Processing",
+      "autoReply": "Auto Reply",
+      "maxRetries": "Max Retries",
+      "concurrency": "Concurrency"
+    },
+    "toast": {
+      "retrySubmitted": "Retry submitted",
+      "retryFailed": "Retry failed",
+      "configUpdated": "Configuration updated"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "section": {
+      "llm": "LLM Configuration",
+      "llmDesc": "Configure LLM API and default models. Supports OpenAI, DeepSeek, Zhipu, and compatible services.",
+      "global": "Global Settings",
+      "globalDesc": "System-level switches and behaviors",
+      "pipeline": "Pipeline Configuration",
+      "pipelineDesc": "Ticket processing pipeline parameters (Intent → Variable Extraction → Agent Reply → Safety Check)"
+    },
+    "providers": {
+      "openai": "OpenAI",
+      "deepseek": "DeepSeek",
+      "zhipu": "Zhipu GLM",
+      "moonshot": "Moonshot (Kimi)",
+      "custom": "Custom (OpenAI Compatible)",
+      "deepseekNote": "DeepSeek does not provide an Embedding API. Use another provider for embeddings or leave empty (keyword search will be used).",
+      "moonshotNote": "Moonshot does not provide an Embedding API"
+    },
+    "label": {
+      "provider": "Provider",
+      "apiBaseUrl": "API Base URL",
+      "apiKey": "API Key",
+      "chatModel": "Chat Model",
+      "embeddingModel": "Embedding Model",
+      "emailPolling": "Email Polling Interval (seconds)",
+      "autoLearning": "Auto Learning (learn from manual replies)",
+      "pipelineAutoReply": "Enable Auto Reply (auto-send after safety check passes)",
+      "maxRetries": "Max Retries"
+    },
+    "placeholder": {
+      "modelName": "Model name",
+      "apiBaseUrl": "https://api.openai.com/v1",
+      "apiKeyMasked": "sk-..."
+    },
+    "option": {
+      "customModel": "Custom: {model}"
+    },
+    "hint": {
+      "apiBaseUrl": "Enter OpenAI-compatible API endpoint",
+      "apiKey": "Leave empty to keep existing key",
+      "noEmbedding": "This provider does not offer embeddings. Leave empty.",
+      "embeddingUsage": "Used for knowledge base semantic search. Leave empty for keyword search.",
+      "maxRetries": "Max retries when a pipeline stage fails"
+    },
+    "button": {
+      "saveLlm": "Save LLM Config",
+      "saveGlobal": "Save Global Settings",
+      "savePipeline": "Save Pipeline Config"
+    },
+    "toast": {
+      "pipelineSaved": "Pipeline config saved",
+      "settingsSaved": "Settings saved",
+      "modelAutoCorrected": "Model config auto-corrected: {details}"
+    }
+  },
+  "integrations": {
+    "title": "Integrations",
+    "subtitle": "Connect external services to extend system capabilities",
+    "tabs": {
+      "all": "All",
+      "channel": "Channel",
+      "tools": "Tools"
+    },
+    "status": {
+      "connected": "Connected",
+      "notConnected": "Not Connected",
+      "comingSoon": "Coming Soon"
+    },
+    "email": {
+      "name": "Email",
+      "description": "Connect email accounts to automatically receive and reply to customer emails"
+    },
+    "api": {
+      "name": "API",
+      "description": "Integrate external systems via REST API to submit messages and create tickets"
+    },
+    "livechat": {
+      "name": "LiveChat",
+      "description": "Embed a live chat widget on your website for real-time visitor conversations"
+    },
+    "wechat": {
+      "name": "WeChat Official",
+      "description": "Connect WeChat Official Account to handle follower messages"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "description": "Integrate WhatsApp Business API to handle customer conversations"
+    },
+    "line": {
+      "name": "LINE",
+      "description": "Connect LINE Messaging API to handle LINE user messages"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "description": "Integrate Telegram Bot to handle Telegram user conversations"
+    },
+    "slack": {
+      "name": "Slack",
+      "description": "Integrate Slack workspace to handle tickets in Slack channels"
+    },
+    "teams": {
+      "name": "Teams",
+      "description": "Integrate Microsoft Teams to handle customer conversations in Teams"
+    },
+    "shopify": {
+      "name": "Shopify",
+      "description": "Connect Shopify store to handle product inquiries and shipping queries"
+    },
+    "webhook": {
+      "name": "Webhook",
+      "description": "Receive event notifications from external systems via Webhook"
+    },
+    "manage": "Manage",
+    "configure": "Configure",
+    "accountCount": "{count} account(s)"
+  },
+  "emailAccounts": {
+    "title": "Email Accounts",
+    "list": {
+      "title": "Account List"
+    },
+    "button": {
+      "add": "Add Account",
+      "submitAdd": "Add"
+    },
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "provider": "Provider",
+      "status": "Status",
+      "lastSync": "Last Sync",
+      "actions": "Actions"
+    },
+    "status": {
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "providers": {
+      "gmail": "Gmail",
+      "outlook": "Outlook",
+      "163": "NetEase 163",
+      "qq": "QQ Mail",
+      "custom": "Custom"
+    },
+    "dialog": {
+      "addTitle": "Add Email Account",
+      "editTitle": "Edit Email Account"
+    },
+    "label": {
+      "displayName": "Display Name",
+      "email": "Email Address",
+      "provider": "Provider",
+      "imapHost": "IMAP Host",
+      "imapPort": "IMAP Port",
+      "smtpHost": "SMTP Host",
+      "smtpPort": "SMTP Port",
+      "password": "Password/Auth Code"
+    },
+    "placeholder": {
+      "displayName": "e.g. Support Inbox",
+      "email": "example@gmail.com",
+      "password": "••••••••",
+      "passwordOptional": "Leave empty to keep existing"
+    },
+    "validation": {
+      "displayName": "Please enter a display name",
+      "email": "Please enter a valid email",
+      "provider": "Please select a provider",
+      "password": "Please enter password/auth code",
+      "imapHost": "Please enter IMAP host",
+      "smtpHost": "Please enter SMTP host"
+    },
+    "action": {
+      "testConnection": "Test Connection",
+      "enable": "Enable",
+      "disable": "Disable"
+    },
+    "confirm": {
+      "delete": "Confirm delete?"
+    },
+    "toast": {
+      "testSuccess": "Connection test successful",
+      "testFailed": "Connection test failed",
+      "addSuccess": "Added successfully",
+      "addFailed": "Failed to add",
+      "updateSuccess": "Updated successfully",
+      "updateFailed": "Failed to update",
+      "statusUpdated": "Status updated",
+      "deleted": "Deleted"
+    }
+  }
+}

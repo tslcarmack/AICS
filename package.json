@@ -1,0 +1,25 @@
+{
+  "name": "aics",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AICS - 智能AI客服系统",
+  "scripts": {
+    "dev": "pnpm --parallel -r run dev",
+    "dev:web": "pnpm --filter @aics/web dev",
+    "dev:server": "pnpm --filter @aics/server dev",
+    "build": "pnpm -r run build",
+    "build:web": "pnpm --filter @aics/web build",
+    "build:server": "pnpm --filter @aics/server build",
+    "db:migrate": "pnpm --filter @aics/server prisma:migrate",
+    "db:generate": "pnpm --filter @aics/server prisma:generate",
+    "db:seed": "pnpm --filter @aics/server prisma:seed",
+    "lint": "pnpm -r run lint"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0"
+  }
+}

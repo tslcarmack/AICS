@@ -1,0 +1,924 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "loading": "加载中...",
+    "confirm": "确定",
+    "create": "创建",
+    "edit": "编辑",
+    "view": "查看",
+    "close": "关闭",
+    "back": "返回",
+    "retry": "重试",
+    "name": "名称",
+    "description": "描述",
+    "status": "状态",
+    "actions": "操作",
+    "enabled": "启用",
+    "disabled": "禁用",
+    "success": "成功",
+    "failed": "失败",
+    "saving": "保存中...",
+    "creating": "创建中...",
+    "deleting": "删除中...",
+    "sending": "发送中...",
+    "uploading": "上传中...",
+    "deleted": "已删除",
+    "update": "更新",
+    "add": "添加",
+    "confirmDelete": "确认删除",
+    "prevPage": "上一页",
+    "nextPage": "下一页",
+    "all": "全部",
+    "type": "类型",
+    "createdAt": "创建时间",
+    "error": {
+      "backendNotConnected": "后端服务未连接",
+      "startBackend": "请先启动后端服务",
+      "backendConnectFailed": "无法连接到后端服务，请确认后端已启动"
+    },
+    "toast": {
+      "operationFailed": "操作失败",
+      "createSuccess": "创建成功",
+      "createFailed": "创建失败",
+      "updateSuccess": "更新成功",
+      "updateFailed": "更新失败",
+      "deleteSuccess": "删除成功",
+      "deleteFailed": "删除失败",
+      "uploadFailed": "上传失败",
+      "saveSuccess": "保存成功",
+      "saveFailed": "保存失败",
+      "statusUpdated": "状态已更新",
+      "addSuccess": "添加成功",
+      "addFailed": "添加失败"
+    }
+  },
+  "nav": {
+    "appName": "AICS",
+    "appSubtitle": "智能AI客服系统",
+    "dashboard": "数据概览",
+    "emailAccounts": "集成中心",
+    "knowledge": "知识中心",
+    "intents": "意图管理",
+    "variables": "变量管理",
+    "tools": "工具管理",
+    "agents": "智能体",
+    "safety": "安全管控",
+    "tickets": "工单管理",
+    "settings": "系统设置",
+    "logout": "退出登录"
+  },
+  "login": {
+    "subtitle": "智能AI客服系统管理后台",
+    "label": {
+      "email": "邮箱",
+      "password": "密码"
+    },
+    "button": {
+      "login": "登录",
+      "loggingIn": "登录中..."
+    },
+    "validation": {
+      "emailPasswordRequired": "请输入邮箱和密码"
+    },
+    "toast": {
+      "loginSuccess": "登录成功"
+    },
+    "error": {
+      "loginFailed": "登录失败",
+      "loginFailedCheck": "登录失败，请检查邮箱和密码"
+    }
+  },
+  "dashboard": {
+    "title": "数据概览",
+    "stats": {
+      "totalTickets": "总工单数",
+      "openTickets": "待处理工单",
+      "resolvedToday": "今日已解决",
+      "autoReplyRate": "自动回复率"
+    },
+    "chart": {
+      "volumeTrend": "工单量趋势",
+      "ticketCount": "工单数",
+      "intentDistribution": "意图分布"
+    },
+    "error": {
+      "startBackend": "请先启动后端服务：在项目目录执行 pnpm dev:server"
+    }
+  },
+  "tickets": {
+    "title": "工单管理",
+    "list": {
+      "title": "工单列表"
+    },
+    "status": {
+      "pending": "待处理",
+      "processing": "处理中",
+      "awaitingReply": "等待回复",
+      "awaiting_reply": "等待回复",
+      "resolved": "已解决",
+      "closed": "已关闭",
+      "transferred": "已转人工",
+      "escalated": "已转人工"
+    },
+    "table": {
+      "subject": "主题",
+      "customerEmail": "客户邮箱",
+      "source": "来源",
+      "status": "状态",
+      "assignedTo": "指派给",
+      "createdAt": "创建时间",
+      "actions": "操作"
+    },
+    "button": {
+      "simulate": "模拟新邮件",
+      "sendSimulate": "发送模拟邮件"
+    },
+    "dialog": {
+      "assignTitle": "指派工单",
+      "userId": "用户 ID",
+      "assignUserIdPlaceholder": "输入要指派的用户 ID",
+      "simulateDesc": "模拟一封客户邮件，将创建新工单并进入处理流水线",
+      "senderEmail": "发件人邮箱",
+      "senderName": "发件人姓名",
+      "subject": "邮件主题",
+      "body": "邮件内容",
+      "bodyPlaceholder": "输入模拟的邮件正文..."
+    },
+    "simulate": {
+      "defaultName": "测试客户",
+      "defaultSubject": "测试邮件 - 产品咨询",
+      "defaultBody": "你好，我想了解一下你们的产品，请问有哪些功能？价格是多少？"
+    },
+    "toast": {
+      "assignSuccess": "指派成功",
+      "assignFailed": "指派失败",
+      "resolved": "已标记解决",
+      "closed": "已关闭",
+      "simulateSuccess": "模拟邮件已发送，将自动创建工单",
+      "simulateFailed": "模拟邮件发送失败",
+      "replySent": "回复已发送",
+      "replyFailed": "回复失败",
+      "retrySubmitted": "已提交重试",
+      "retryFailed": "重试失败"
+    },
+    "action": {
+      "viewTicket": "查看工单",
+      "resolve": "解决",
+      "close": "关闭"
+    },
+    "detail": {
+      "noSubject": "无主题",
+      "source": "来源:",
+      "assignedTo": "指派给:",
+      "conversationTitle": "对话记录",
+      "noConversation": "暂无对话记录",
+      "sender": {
+        "customer": "客户"
+      },
+      "replyPlaceholder": "输入回复内容...",
+      "sendReply": "发送回复",
+      "ticketInfo": "工单信息",
+      "intent": "识别意图",
+      "extractedVars": "提取变量",
+      "safetyFlags": "安全标记",
+      "processingLog": "处理日志",
+      "intentResult": "意图:",
+      "confidence": "置信度",
+      "agentName": "智能体:"
+    },
+    "pipeline": {
+      "ingest": "收录",
+      "intent": "意图识别",
+      "variable": "变量提取",
+      "agent": "智能体处理",
+      "safety": "安全审核",
+      "queued": "排队中",
+      "processing": "处理中",
+      "completed": "完成",
+      "failed": "失败",
+      "escalated": "已转人工"
+    },
+    "error": {
+      "notFoundOrBackend": "工单不存在或后端服务未连接"
+    },
+    "placeholder": {
+      "customerName": "客户姓名"
+    }
+  },
+  "knowledge": {
+    "title": "知识中心",
+    "label": {
+      "knowledgeBase": "知识库",
+      "documents": "文档",
+      "categoryName": "分类名称",
+      "parentCategory": "父分类",
+      "entryTitle": "知识标题",
+      "entryContent": "知识内容"
+    },
+    "tree": {
+      "allKnowledge": "所有知识",
+      "uncategorized": "未分类"
+    },
+    "status": {
+      "pending": "待处理",
+      "processing": "处理中",
+      "ready": "已发布",
+      "failed": "失败"
+    },
+    "type": {
+      "pdf": "PDF",
+      "word": "Word",
+      "excel": "Excel",
+      "txt": "文本",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "richtext": "问答"
+    },
+    "action": {
+      "createBase": "新建知识库",
+      "addCategory": "添加分类",
+      "addTopCategory": "新建顶级分类",
+      "addSubCategory": "新建子分类",
+      "rename": "重命名",
+      "deleteCategory": "删除分类",
+      "deleteUncategorized": "删除所有未分类知识"
+    },
+    "button": {
+      "upload": "上传文件",
+      "create": "创建知识"
+    },
+    "table": {
+      "fileName": "文件名称",
+      "type": "类型",
+      "status": "状态",
+      "category": "分类",
+      "createdAt": "创建时间",
+      "actions": "操作"
+    },
+    "filter": {
+      "allType": "全部类型",
+      "allStatus": "全部状态",
+      "clear": "清除筛选"
+    },
+    "search": {
+      "placeholder": "搜索知识名称..."
+    },
+    "empty": {
+      "selectBase": "请先创建或选择一个知识库",
+      "noMatch": "没有匹配的知识",
+      "noKnowledge": "暂无知识，请上传文件或创建知识"
+    },
+    "pagination": {
+      "total": "共 {count} 条",
+      "selected": "已选 {count} 条",
+      "perPage": "{count}条/页"
+    },
+    "dialog": {
+      "createBase": "新建知识库",
+      "addCategory": "新建分类",
+      "renameCategory": "重命名分类",
+      "createEntry": "创建知识",
+      "editEntry": "编辑知识",
+      "docPreview": "文档预览",
+      "docProcessing": "文档正在处理中，内容尚未提取...",
+      "noContent": "该文档暂无文本内容",
+      "viewChunks": "查看知识切片（{count} 个）"
+    },
+    "placeholder": {
+      "baseName": "知识库名称",
+      "baseDesc": "知识库描述（可选）",
+      "categoryName": "输入分类名称",
+      "newName": "输入新名称",
+      "entryTitle": "输入知识标题",
+      "qaFormat": "Q: 问题\nA: 答案\n\n支持多组问答",
+      "editContent": "编辑知识内容..."
+    },
+    "stats": {
+      "docsAndCategories": "{docs} 条知识 · {categories} 个分类"
+    },
+    "confirm": {
+      "deleteDoc": "确定删除此知识？",
+      "deleteCategory": "确定删除分类「{name}」及其下所有知识吗？",
+      "deleteUncategorized": "确定删除所有 {count} 条未分类知识？此操作不可恢复。"
+    },
+    "toast": {
+      "createBaseSuccess": "知识库创建成功",
+      "deleteBaseSuccess": "知识库已删除",
+      "createCategorySuccess": "分类创建成功",
+      "createCategoryFailed": "创建分类失败",
+      "renameSuccess": "分类已重命名",
+      "deleteCategorySuccess": "分类已删除",
+      "uploadSuccess": "上传成功，后台处理中",
+      "createEntrySuccess": "知识创建成功",
+      "deleteUncategorizedSuccess": "未分类知识已全部删除",
+      "updateSuccess": "知识已更新",
+      "getDocFailed": "获取文档内容失败"
+    }
+  },
+  "intents": {
+    "title": "意图管理",
+    "list": {
+      "title": "意图列表"
+    },
+    "button": {
+      "create": "新建意图",
+      "test": "意图测试",
+      "recognize": "识别意图",
+      "recognizing": "识别中..."
+    },
+    "table": {
+      "name": "名称",
+      "description": "描述",
+      "type": "类型",
+      "status": "状态",
+      "keywords": "关键词",
+      "boundAgent": "绑定智能体",
+      "actions": "操作"
+    },
+    "badge": {
+      "system": "系统",
+      "custom": "自定义"
+    },
+    "action": {
+      "bindAgent": "绑定智能体"
+    },
+    "empty": "暂无意图，请点击\"新建意图\"添加",
+    "dialog": {
+      "createTitle": "新建自定义意图",
+      "editSystemTitle": "编辑系统意图",
+      "editCustomTitle": "编辑自定义意图",
+      "systemNameReadonly": "系统预设意图名称不可修改",
+      "bindTitle": "绑定智能体",
+      "selectAgent": "选择智能体",
+      "testTitle": "意图识别测试"
+    },
+    "label": {
+      "keywords": "关键词（逗号分隔）",
+      "exampleUtterances": "示例话术（每行一条）",
+      "testMessage": "输入测试消息"
+    },
+    "placeholder": {
+      "name": "意图名称",
+      "description": "简要描述",
+      "keywords": "退款, 退货, 退钱",
+      "examples": "我想退款\n怎么申请退货\n退款流程是什么",
+      "testMessage": "输入要识别意图的消息..."
+    },
+    "option": {
+      "noBind": "不绑定"
+    },
+    "confirm": {
+      "delete": "确定要删除意图「{name}」吗？此操作不可恢复。"
+    },
+    "test": {
+      "result": "识别结果"
+    },
+    "toast": {
+      "bindSuccess": "绑定成功",
+      "bindFailed": "绑定失败",
+      "deleteFailedPreset": "系统预设意图不可删除"
+    },
+    "validation": {
+      "nameRequired": "请输入名称"
+    }
+  },
+  "variables": {
+    "title": "变量管理",
+    "list": {
+      "title": "变量列表"
+    },
+    "button": {
+      "create": "新建变量"
+    },
+    "tabs": {
+      "all": "全部 ({count})",
+      "system": "系统变量 ({count})",
+      "custom": "自定义 ({count})"
+    },
+    "table": {
+      "name": "名称",
+      "displayName": "显示名称",
+      "dataType": "数据类型",
+      "extractionMethod": "提取方式",
+      "type": "类型",
+      "actions": "操作"
+    },
+    "badge": {
+      "system": "系统",
+      "custom": "自定义"
+    },
+    "confirm": {
+      "delete": "确定删除？"
+    },
+    "dataType": {
+      "string": "文本",
+      "number": "数字",
+      "boolean": "布尔",
+      "date": "日期",
+      "email": "邮箱",
+      "list": "列表"
+    },
+    "extraction": {
+      "auto_sync": "自动同步",
+      "keyword": "关键词提取",
+      "llm": "LLM 提取"
+    },
+    "dialog": {
+      "createTitle": "新建变量",
+      "editTitle": "编辑变量"
+    },
+    "label": {
+      "name": "变量名（英文）",
+      "displayName": "显示名称",
+      "extractionConfig": "提取配置（JSON, 可选）"
+    },
+    "placeholder": {
+      "name": "如: order_id",
+      "displayName": "如: 订单号",
+      "description": "变量描述（可选）",
+      "extractionConfig": "'{'\"keywords\": [\"订单号\", \"order\"]'}'"
+    },
+    "validation": {
+      "nameRequired": "请输入名称",
+      "displayNameRequired": "请输入显示名称",
+      "dataTypeRequired": "请选择数据类型",
+      "extractionMethodRequired": "请选择提取方式"
+    }
+  },
+  "tools": {
+    "title": "工具管理",
+    "subtitle": "管理 API 工具，供智能体在处理工单时调用外部服务",
+    "button": {
+      "create": "创建工具",
+      "addParam": "添加参数",
+      "addMapping": "添加映射"
+    },
+    "table": {
+      "name": "名称",
+      "displayName": "显示名",
+      "type": "类型",
+      "method": "方法",
+      "status": "状态",
+      "actions": "操作"
+    },
+    "empty": "暂无工具，点击\"创建工具\"开始添加",
+    "badge": {
+      "builtin": "内置"
+    },
+    "section": {
+      "basic": "基本信息",
+      "api": "API 配置",
+      "auth": "认证",
+      "params": "参数定义",
+      "mapping": "响应映射"
+    },
+    "label": {
+      "name": "工具标识名",
+      "displayName": "显示名称",
+      "description": "工具描述",
+      "method": "请求方法",
+      "url": "API 地址",
+      "headers": "请求头 (JSON)",
+      "bodyTemplate": "请求体模板 (JSON)",
+      "timeout": "超时 (毫秒)",
+      "authType": "认证类型",
+      "bearerToken": "Bearer Token",
+      "authHeaderName": "Header 名称",
+      "authHeaderValue": "Header 值",
+      "username": "用户名",
+      "password": "密码",
+      "paramDescription": "描述",
+      "variableBinding": "绑定变量",
+      "jsonPath": "JSON 路径",
+      "targetVariable": "目标变量",
+      "required": "必填"
+    },
+    "placeholder": {
+      "displayName": "查询订单状态",
+      "description": "用于查询用户的订单状态，需要订单号作为参数"
+    },
+    "hint": {
+      "description": "该描述会传递给 LLM，帮助 AI 判断何时调用此工具",
+      "placeholders": "支持 '{'variable_name'}' 占位符，运行时自动替换",
+      "params": "定义工具的输入参数，智能体会根据对话上下文自动填充",
+      "mapping": "配置响应字段映射到系统变量，方便后续流程使用"
+    },
+    "paramType": {
+      "string": "字符串",
+      "number": "数字",
+      "boolean": "布尔",
+      "array": "数组",
+      "object": "对象"
+    },
+    "auth": {
+      "none": "无认证",
+      "bearer": "Bearer Token",
+      "api_key": "API Key",
+      "basic": "Basic Auth"
+    },
+    "option": {
+      "none": "无"
+    },
+    "dialog": {
+      "createTitle": "创建工具",
+      "editTitle": "编辑工具"
+    },
+    "empty_params": "暂无参数",
+    "empty_mapping": "暂无响应映射",
+    "test": {
+      "dialogTitle": "测试工具: {name}",
+      "inputParams": "输入参数",
+      "noParams": "该工具无需输入参数",
+      "binding": "绑定:",
+      "executing": "执行中...",
+      "sendRequest": "发送测试请求",
+      "request": "请求",
+      "selectVariable": "选择变量"
+    },
+    "logs": {
+      "title": "执行日志",
+      "empty": "暂无执行日志",
+      "ticket": "工单",
+      "agent": "智能体",
+      "inputParams": "输入参数",
+      "response": "响应",
+      "error": "错误:"
+    },
+    "confirm": {
+      "delete": "确定要删除该工具吗？",
+      "deleteWithBindings": "该工具已被 {count} 个智能体绑定，删除后将自动解绑。确定要删除吗？"
+    },
+    "toast": {
+      "createSuccess": "工具创建成功",
+      "updateSuccess": "工具更新成功",
+      "deleteSuccess": "工具已删除"
+    },
+    "validation": {
+      "paramName": "请输入参数名",
+      "paramType": "请选择类型",
+      "jsonPath": "请输入 JSON 路径",
+      "variable": "请选择变量",
+      "toolName": "请输入工具标识名",
+      "nameFormat": "仅支持英文、数字和下划线",
+      "displayName": "请输入显示名称",
+      "description": "请输入工具描述",
+      "url": "请输入 API 地址"
+    }
+  },
+  "agents": {
+    "title": "智能体",
+    "list": {
+      "title": "智能体列表"
+    },
+    "button": {
+      "create": "新建智能体"
+    },
+    "table": {
+      "name": "名称",
+      "type": "类型",
+      "description": "描述",
+      "status": "状态",
+      "knowledgeBase": "知识库",
+      "tools": "工具",
+      "actions": "操作"
+    },
+    "type": {
+      "conversational": "对话型",
+      "workflow": "工作流型"
+    },
+    "dialog": {
+      "createTitle": "新建智能体",
+      "editTitle": "编辑智能体"
+    },
+    "label": {
+      "systemPrompt": "系统提示词",
+      "temperature": "温度 (0-2)",
+      "maxTokens": "最大 Token",
+      "knowledgeBase": "关联知识库",
+      "tools": "绑定工具"
+    },
+    "placeholder": {
+      "name": "智能体名称",
+      "description": "简要描述",
+      "systemPrompt": "定义智能体的行为和角色..."
+    },
+    "option": {
+      "none": "无"
+    },
+    "confirm": {
+      "delete": "确定删除？"
+    },
+    "empty": {
+      "noTools": "暂无可用工具"
+    },
+    "hint": {
+      "tools": "对话式智能体通过 Function Calling 调用工具"
+    },
+    "toast": {
+      "duplicateSuccess": "复制成功"
+    },
+    "validation": {
+      "nameRequired": "请输入名称"
+    }
+  },
+  "safety": {
+    "title": "安全管控",
+    "stats": {
+      "totalChecks": "安全检查总数",
+      "passRate": "通过率",
+      "blockedCount": "拦截数"
+    },
+    "tabs": {
+      "rules": "安全规则",
+      "logs": "安全日志"
+    },
+    "button": {
+      "add": "添加规则"
+    },
+    "checkType": {
+      "keyword": "关键词",
+      "regex": "正则表达式",
+      "llm": "LLM 检查"
+    },
+    "severity": {
+      "low": "低",
+      "medium": "中",
+      "high": "高",
+      "critical": "严重"
+    },
+    "action": {
+      "warn": "警告",
+      "block": "拦截",
+      "transfer": "转人工"
+    },
+    "table": {
+      "name": "名称",
+      "checkType": "检查类型",
+      "pattern": "模式/关键词",
+      "severity": "严重程度",
+      "action": "动作",
+      "status": "状态",
+      "actions": "操作",
+      "ticketId": "工单 ID",
+      "result": "结果",
+      "details": "详情",
+      "time": "时间"
+    },
+    "result": {
+      "passed": "通过",
+      "failed": "不通过"
+    },
+    "dialog": {
+      "addTitle": "添加安全规则",
+      "editTitle": "编辑安全规则"
+    },
+    "label": {
+      "pattern": "匹配模式/关键词"
+    },
+    "placeholder": {
+      "name": "规则名称",
+      "description": "规则描述（可选）",
+      "pattern": "关键词或正则表达式"
+    },
+    "hint": {
+      "builtinRule": "内置规则仅允许修改严重程度和动作"
+    },
+    "validation": {
+      "nameRequired": "请输入名称",
+      "checkTypeRequired": "请选择检查类型"
+    }
+  },
+  "pipeline": {
+    "title": "邮件处理流水线",
+    "section": {
+      "records": "处理记录",
+      "config": "流水线配置"
+    },
+    "status": {
+      "queued": "排队中",
+      "ingesting": "收录中",
+      "recognizing_intent": "意图识别中",
+      "extracting_variables": "变量提取中",
+      "agent_processing": "智能体处理中",
+      "safety_checking": "安全审核中",
+      "completed": "已完成",
+      "failed": "失败"
+    },
+    "label": {
+      "statusFilter": "状态筛选"
+    },
+    "table": {
+      "ticketId": "工单 ID",
+      "stage": "阶段",
+      "status": "状态",
+      "duration": "耗时",
+      "createdAt": "创建时间",
+      "actions": "操作"
+    },
+    "config": {
+      "enabled": "启用自动处理",
+      "autoReply": "自动回复",
+      "maxRetries": "最大重试次数",
+      "concurrency": "并发数"
+    },
+    "toast": {
+      "retrySubmitted": "已提交重试",
+      "retryFailed": "重试失败",
+      "configUpdated": "配置已更新"
+    }
+  },
+  "settings": {
+    "title": "系统设置",
+    "section": {
+      "llm": "LLM 配置",
+      "llmDesc": "配置大语言模型 API 与默认模型，支持 OpenAI、DeepSeek、智谱等兼容服务",
+      "global": "全局设置",
+      "globalDesc": "系统级开关与行为",
+      "pipeline": "流水线配置",
+      "pipelineDesc": "工单自动化处理流水线参数（意图识别 → 变量提取 → 智能体回复 → 安全审核）"
+    },
+    "providers": {
+      "openai": "OpenAI",
+      "deepseek": "DeepSeek",
+      "zhipu": "智谱 GLM",
+      "moonshot": "Moonshot (Kimi)",
+      "custom": "自定义 (OpenAI 兼容)",
+      "deepseekNote": "DeepSeek 不提供 Embedding API，向量模型需使用其他服务商或留空（将使用关键词搜索）",
+      "moonshotNote": "Moonshot 不提供 Embedding API"
+    },
+    "label": {
+      "provider": "服务商",
+      "apiBaseUrl": "API Base URL",
+      "apiKey": "API Key",
+      "chatModel": "对话模型",
+      "embeddingModel": "向量模型（Embedding）",
+      "emailPolling": "邮件轮询间隔（秒）",
+      "autoLearning": "自动学习（从人工回复中学习知识）",
+      "pipelineAutoReply": "启用自动回复（安全审核通过后自动发送回复）",
+      "maxRetries": "最大重试次数"
+    },
+    "placeholder": {
+      "modelName": "模型名称",
+      "apiBaseUrl": "https://api.openai.com/v1",
+      "apiKeyMasked": "sk-..."
+    },
+    "option": {
+      "customModel": "自定义: {model}"
+    },
+    "hint": {
+      "apiBaseUrl": "填入兼容 OpenAI 接口的服务地址",
+      "apiKey": "留空则不更新已有密钥",
+      "noEmbedding": "该服务商不提供 Embedding，可留空",
+      "embeddingUsage": "用于知识库语义检索，留空则自动使用关键词搜索",
+      "maxRetries": "流水线阶段处理失败时的最大重试次数"
+    },
+    "button": {
+      "saveLlm": "保存 LLM 配置",
+      "saveGlobal": "保存全局设置",
+      "savePipeline": "保存流水线配置"
+    },
+    "toast": {
+      "pipelineSaved": "流水线配置已保存",
+      "settingsSaved": "设置已保存",
+      "modelAutoCorrected": "模型配置已自动更正: {details}"
+    }
+  },
+  "integrations": {
+    "title": "集成中心",
+    "subtitle": "连接外部服务，扩展系统能力",
+    "tabs": {
+      "all": "全部",
+      "channel": "渠道",
+      "tools": "工具"
+    },
+    "status": {
+      "connected": "已连接",
+      "notConnected": "未连接",
+      "comingSoon": "即将推出"
+    },
+    "email": {
+      "name": "邮箱",
+      "description": "接入邮箱账号，自动接收和回复客户邮件"
+    },
+    "api": {
+      "name": "API",
+      "description": "通过 REST API 对接外部系统，提交消息并创建工单"
+    },
+    "livechat": {
+      "name": "LiveChat",
+      "description": "集成在线聊天组件，嵌入网站为访客提供实时对话"
+    },
+    "wechat": {
+      "name": "微信公众号",
+      "description": "对接微信公众号，自动处理粉丝消息"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "description": "集成 WhatsApp Business API，处理客户会话"
+    },
+    "line": {
+      "name": "LINE",
+      "description": "对接 LINE Messaging API，处理 LINE 用户消息"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "description": "集成 Telegram Bot，处理 Telegram 用户对话"
+    },
+    "slack": {
+      "name": "Slack",
+      "description": "集成 Slack 工作区，在 Slack 频道中处理工单"
+    },
+    "teams": {
+      "name": "Teams",
+      "description": "集成 Microsoft Teams，在 Teams 中处理客户对话"
+    },
+    "shopify": {
+      "name": "Shopify",
+      "description": "对接 Shopify 店铺，处理商品咨询和物流查询"
+    },
+    "webhook": {
+      "name": "Webhook",
+      "description": "通过 Webhook 接收外部系统推送的事件通知"
+    },
+    "manage": "管理",
+    "configure": "配置",
+    "accountCount": "{count} 个账号"
+  },
+  "emailAccounts": {
+    "title": "邮箱账号",
+    "list": {
+      "title": "账号列表"
+    },
+    "button": {
+      "add": "添加账号",
+      "submitAdd": "添加"
+    },
+    "table": {
+      "name": "名称",
+      "email": "邮箱",
+      "provider": "服务商",
+      "status": "状态",
+      "lastSync": "最后同步",
+      "actions": "操作"
+    },
+    "status": {
+      "enabled": "已启用",
+      "disabled": "已禁用"
+    },
+    "providers": {
+      "gmail": "Gmail",
+      "outlook": "Outlook",
+      "163": "网易163",
+      "qq": "QQ邮箱",
+      "custom": "自定义"
+    },
+    "dialog": {
+      "addTitle": "添加邮箱账号",
+      "editTitle": "编辑邮箱账号"
+    },
+    "label": {
+      "displayName": "显示名称",
+      "email": "邮箱地址",
+      "provider": "服务商",
+      "imapHost": "IMAP 主机",
+      "imapPort": "IMAP 端口",
+      "smtpHost": "SMTP 主机",
+      "smtpPort": "SMTP 端口",
+      "password": "密码/授权码"
+    },
+    "placeholder": {
+      "displayName": "如：客服邮箱",
+      "email": "example@gmail.com",
+      "password": "••••••••",
+      "passwordOptional": "留空表示不修改"
+    },
+    "validation": {
+      "displayName": "请输入显示名称",
+      "email": "请输入有效邮箱",
+      "provider": "请选择邮件服务商",
+      "password": "请输入密码/授权码",
+      "imapHost": "请输入 IMAP 主机",
+      "smtpHost": "请输入 SMTP 主机"
+    },
+    "action": {
+      "testConnection": "测试连接",
+      "enable": "启用",
+      "disable": "禁用"
+    },
+    "confirm": {
+      "delete": "确定删除？"
+    },
+    "toast": {
+      "testSuccess": "连接测试成功",
+      "testFailed": "连接测试失败",
+      "addSuccess": "添加成功",
+      "addFailed": "添加失败",
+      "updateSuccess": "更新成功",
+      "updateFailed": "更新失败",
+      "statusUpdated": "状态已更新",
+      "deleted": "已删除"
+    }
+  }
+}
