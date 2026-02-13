@@ -31,6 +31,7 @@
     "prevPage": "上一页",
     "nextPage": "下一页",
     "all": "全部",
+    "clearFilter": "清除筛选",
     "type": "类型",
     "createdAt": "创建时间",
     "error": {
@@ -64,6 +65,7 @@
     "variables": "变量管理",
     "tools": "工具管理",
     "agents": "智能体",
+    "tags": "标签管理",
     "safety": "安全管控",
     "tickets": "工单管理",
     "settings": "系统设置",
@@ -127,6 +129,7 @@
       "customerEmail": "客户邮箱",
       "source": "来源",
       "status": "状态",
+      "tags": "标签",
       "assignedTo": "指派给",
       "createdAt": "创建时间",
       "actions": "操作"
@@ -161,7 +164,12 @@
       "replySent": "回复已发送",
       "replyFailed": "回复失败",
       "retrySubmitted": "已提交重试",
-      "retryFailed": "重试失败"
+      "retryFailed": "重试失败",
+      "tagAddFail": "添加标签失败",
+      "tagRemoveFail": "移除标签失败"
+    },
+    "filter": {
+      "byTag": "标签筛选"
     },
     "action": {
       "viewTicket": "查看工单",
@@ -169,6 +177,10 @@
       "close": "关闭"
     },
     "detail": {
+      "id": "工单ID",
+      "createdAt": "创建时间",
+      "resolve":"解决",
+      "close":"关闭",
       "noSubject": "无主题",
       "source": "来源:",
       "assignedTo": "指派给:",
@@ -181,6 +193,10 @@
       "sendReply": "发送回复",
       "ticketInfo": "工单信息",
       "intent": "识别意图",
+      "tags": "标签",
+      "addTag": "添加标签",
+      "searchTag": "搜索标签...",
+      "noTagsAvailable": "没有可用的标签",
       "extractedVars": "提取变量",
       "safetyFlags": "安全标记",
       "processingLog": "处理日志",
@@ -326,7 +342,8 @@
       "create": "新建意图",
       "test": "意图测试",
       "recognize": "识别意图",
-      "recognizing": "识别中..."
+      "recognizing": "识别中...",
+      "addAction": "添加动作"
     },
     "table": {
       "name": "名称",
@@ -334,8 +351,7 @@
       "type": "类型",
       "status": "状态",
       "keywords": "关键词",
-      "boundAgent": "绑定智能体",
-      "actions": "操作"
+      "actions": "动作"
     },
     "badge": {
       "system": "系统",
@@ -357,7 +373,8 @@
     "label": {
       "keywords": "关键词（逗号分隔）",
       "exampleUtterances": "示例话术（每行一条）",
-      "testMessage": "输入测试消息"
+      "testMessage": "输入测试消息",
+      "actions": "触发动作"
     },
     "placeholder": {
       "name": "意图名称",
@@ -374,6 +391,20 @@
     },
     "test": {
       "result": "识别结果"
+    },
+    "actionType": {
+      "execute_agent": "执行智能体",
+      "executeAgent": "执行智能体",
+      "add_tag": "打标签",
+      "addTag": "打标签",
+      "escalate": "转人工处理"
+    },
+    "actionConfig": {
+      "selectAgent": "选择智能体",
+      "selectTag": "选择标签",
+      "escalateDesc": "将工单转交给人工客服处理",
+      "escalateWarning": "转人工动作之后的动作不会被执行",
+      "noActions": "暂无动作，点击右上方按钮添加"
     },
     "toast": {
       "bindSuccess": "绑定成功",
@@ -622,6 +653,32 @@
     "validation": {
       "nameRequired": "请输入名称"
     }
+  },
+  "tags": {
+    "title": "标签管理",
+    "tagList": "标签列表",
+    "create": "新建标签",
+    "createTag": "新建标签",
+    "editTag": "编辑标签",
+    "name": "名称",
+    "namePlaceholder": "输入标签名称",
+    "color": "颜色",
+    "createdAt": "创建时间",
+    "actions": "操作",
+    "edit": "编辑",
+    "delete": "删除",
+    "save": "保存",
+    "cancel": "取消",
+    "preview": "预览",
+    "loading": "加载中...",
+    "empty": "暂无标签，点击上方按钮创建",
+    "confirmDelete": "确定删除该标签？关联的工单标记也会被移除。",
+    "createSuccess": "标签创建成功",
+    "createError": "标签创建失败",
+    "updateSuccess": "标签更新成功",
+    "updateError": "标签更新失败",
+    "deleteSuccess": "标签删除成功",
+    "deleteError": "标签删除失败"
   },
   "safety": {
     "title": "安全管控",

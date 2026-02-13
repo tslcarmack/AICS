@@ -33,6 +33,7 @@ export class IntentController {
       description?: string;
       exampleUtterances?: string[];
       keywords?: string[];
+      actions?: Array<{ type: string; config?: any; order?: number }>;
     },
   ) {
     return this.intentService.create(body);
@@ -47,6 +48,7 @@ export class IntentController {
       description?: string;
       exampleUtterances?: string[];
       keywords?: string[];
+      actions?: Array<{ type: string; config?: any; order?: number }>;
     },
   ) {
     return this.intentService.update(id, body);

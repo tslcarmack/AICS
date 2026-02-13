@@ -19,6 +19,7 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
+    timeZone: 'Asia/Shanghai',
     messages: messagesMap[locale],
     onError(error) {
       // Silently fall back on missing translations

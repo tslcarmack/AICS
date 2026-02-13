@@ -13,6 +13,7 @@ export class IntentService {
     return this.prisma.intent.findMany({
       include: {
         boundAgent: { select: { id: true, name: true, type: true } },
+        actions: { orderBy: { order: 'asc' } },
       },
       orderBy: [{ type: 'asc' }, { createdAt: 'desc' }],
     });
@@ -23,6 +24,7 @@ export class IntentService {
     description?: string;
     exampleUtterances?: string[];
     keywords?: string[];
+    actions?: Array<{ type: string; config?: any; order?: number }>;
   }) {
     return this.prisma.intent.create({
       data: {
@@ -31,7 +33,17 @@ export class IntentService {
         type: 'custom',
         exampleUtterances: data.exampleUtterances || [],
         keywords: data.keywords || [],
+        actions: data.actions
+          ? {
+              create: data.actions.map((a, i) => ({
+                type: a.type,
+                config: a.config || {},
+                order: a.order ?? i + 1,
+              })),
+            }
+          : undefined,
       },
+      include: { actions: { orderBy: { order: 'asc' } } },
     });
   }
 
@@ -42,21 +54,45 @@ export class IntentService {
       description?: string;
       exampleUtterances?: string[];
       keywords?: string[];
+      actions?: Array<{ type: string; config?: any; order?: number }>;
     },
   ) {
     const intent = await this.findOrThrow(id);
+
+    // Handle actions update (delete-and-recreate)
+    if (data.actions !== undefined) {
+      await this.prisma.intentAction.deleteMany({ where: { intentId: id } });
+      if (data.actions.length > 0) {
+        await this.prisma.intentAction.createMany({
+          data: data.actions.map((a, i) => ({
+            intentId: id,
+            type: a.type,
+            config: a.config || {},
+            order: a.order ?? i + 1,
+          })),
+        });
+      }
+    }
+
+    const { actions: _actions, ...intentData } = data;
+
     if (intent.type === 'preset') {
-      // Only allow updating description and examples for preset
+      // Only allow updating description, examples, keywords for preset
       return this.prisma.intent.update({
         where: { id },
         data: {
-          description: data.description,
-          exampleUtterances: data.exampleUtterances as any,
-          keywords: data.keywords as any,
+          description: intentData.description,
+          exampleUtterances: intentData.exampleUtterances as any,
+          keywords: intentData.keywords as any,
         },
+        include: { actions: { orderBy: { order: 'asc' } } },
       });
     }
-    return this.prisma.intent.update({ where: { id }, data: data as any });
+    return this.prisma.intent.update({
+      where: { id },
+      data: intentData as any,
+      include: { actions: { orderBy: { order: 'asc' } } },
+    });
   }
 
   async delete(id: string) {
@@ -86,7 +122,10 @@ export class IntentService {
   async getEnabledIntents() {
     return this.prisma.intent.findMany({
       where: { enabled: true },
-      include: { boundAgent: true },
+      include: {
+        boundAgent: true,
+        actions: { orderBy: { order: 'asc' } },
+      },
     });
   }
 

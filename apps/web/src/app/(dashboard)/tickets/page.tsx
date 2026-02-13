@@ -52,6 +52,7 @@ export default function TicketsPage() {
   const [assignOpen, setAssignOpen] = useState(false);
   const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
   const [assignUserId, setAssignUserId] = useState('');
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
   const [simulateOpen, setSimulateOpen] = useState(false);
   const [simulateForm, setSimulateForm] = useState({
     senderEmail: 'customer@example.com',
@@ -61,11 +62,20 @@ export default function TicketsPage() {
   });
   const queryClient = useQueryClient();
 
+  const { data: allTags = [] } = useQuery({
+    queryKey: ['tags'],
+    queryFn: async () => {
+      const res = await api.get('/tags');
+      return res.data ?? [];
+    },
+  });
+
   const { data: ticketsData, isLoading, error } = useQuery({
-    queryKey: ['tickets', statusFilter],
+    queryKey: ['tickets', statusFilter, selectedTagIds],
     queryFn: async () => {
       const params: Record<string, string> = {};
       if (statusFilter !== 'all') params.status = statusFilter;
+      if (selectedTagIds.length > 0) params.tagIds = selectedTagIds.join(',');
       const res = await api.get('/tickets', { params });
       return res.data;
     },
@@ -139,6 +149,42 @@ export default function TicketsPage() {
           <CardTitle>{t('list.title')}</CardTitle>
         </CardHeader>
         <CardContent>
+          {allTags.length > 0 && (
+            <div className="flex items-center gap-2 mb-4 flex-wrap">
+              <span className="text-sm text-muted-foreground">{t('filter.byTag')}:</span>
+              {allTags.map((tag: any) => {
+                const isSelected = selectedTagIds.includes(tag.id);
+                return (
+                  <button
+                    key={tag.id}
+                    onClick={() =>
+                      setSelectedTagIds((prev) =>
+                        isSelected ? prev.filter((id) => id !== tag.id) : [...prev, tag.id]
+                      )
+                    }
+                    className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-all border ${
+                      isSelected ? 'text-white border-transparent' : 'border-border text-foreground bg-background hover:bg-muted'
+                    }`}
+                    style={isSelected ? { backgroundColor: tag.color } : undefined}
+                  >
+                    {!isSelected && (
+                      <span className="inline-block h-2.5 w-2.5 rounded-full mr-1.5" style={{ backgroundColor: tag.color }} />
+                    )}
+                    {tag.name}
+                  </button>
+                );
+              })}
+              {selectedTagIds.length > 0 && (
+                <button
+                  onClick={() => setSelectedTagIds([])}
+                  className="text-xs text-muted-foreground hover:text-foreground underline"
+                >
+                  {tc('clearFilter')}
+                </button>
+              )}
+            </div>
+          )}
+
           <Tabs value={statusFilter} onValueChange={setStatusFilter}>
             <TabsList>
               {STATUS_TABS.map((tab) => (
@@ -160,6 +206,7 @@ export default function TicketsPage() {
                         <TableHead>{t('table.customerEmail')}</TableHead>
                         <TableHead>{t('table.source')}</TableHead>
                         <TableHead>{t('table.status')}</TableHead>
+                        <TableHead>{t('table.tags')}</TableHead>
                         <TableHead>{t('table.assignedTo')}</TableHead>
                         <TableHead>{t('table.createdAt')}</TableHead>
                         <TableHead>{t('table.actions')}</TableHead>
@@ -177,6 +224,19 @@ export default function TicketsPage() {
                             <Badge variant={statusVariant[ticket.status] ?? 'secondary'}>
                               {ticket.status ? t(`status.${ticket.status}`) : '-'}
                             </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-1 flex-wrap">
+                              {(ticket.tags || []).map((tt: any) => (
+                                <span
+                                  key={tt.tag?.id || tt.tagId}
+                                  className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium text-white"
+                                  style={{ backgroundColor: tt.tag?.color || '#6b7280' }}
+                                >
+                                  {tt.tag?.name || ''}
+                                </span>
+                              ))}
+                            </div>
                           </TableCell>
                           <TableCell>{ticket.assignedUser?.name ?? '-'}</TableCell>
                           <TableCell>

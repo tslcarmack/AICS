@@ -12,7 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { useTranslations } from 'next-intl';
-import { ArrowLeft, Send, UserPlus, CheckCircle, XCircle, AlertTriangle, Bot, User, RefreshCw, Workflow } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ArrowLeft, Send, UserPlus, CheckCircle, XCircle, AlertTriangle, Bot, User, RefreshCw, Workflow, Tag, Plus, X } from 'lucide-react';
 
 const statusVariant: Record<string, 'default' | 'secondary' | 'destructive'> = {
   pending: 'secondary',
@@ -37,6 +38,8 @@ export default function TicketDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [replyContent, setReplyContent] = useState('');
+  const [tagPickerOpen, setTagPickerOpen] = useState(false);
+  const [tagSearch, setTagSearch] = useState('');
   const queryClient = useQueryClient();
 
   const { data: ticket, isLoading, error } = useQuery({
@@ -74,6 +77,32 @@ export default function TicketDetailPage() {
       queryClient.invalidateQueries({ queryKey: ['tickets', id] });
       toast.success(t('toast.closed'));
     },
+  });
+
+  const { data: allTags = [] } = useQuery({
+    queryKey: ['tags'],
+    queryFn: async () => {
+      const res = await api.get('/tags');
+      return res.data ?? [];
+    },
+  });
+
+  const addTagMutation = useMutation({
+    mutationFn: async (tagId: string) => api.post(`/tickets/${id}/tags`, { tagId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tickets', id] });
+      setTagPickerOpen(false);
+      setTagSearch('');
+    },
+    onError: () => toast.error(t('toast.tagAddFail')),
+  });
+
+  const removeTagMutation = useMutation({
+    mutationFn: async (tagId: string) => api.delete(`/tickets/${id}/tags/${tagId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tickets', id] });
+    },
+    onError: () => toast.error(t('toast.tagRemoveFail')),
   });
 
   const retryMutation = useMutation({
@@ -259,6 +288,81 @@ export default function TicketDetailPage() {
                   <Badge variant="secondary">{ticket.intent.name}</Badge>
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Tags */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm flex items-center gap-1">
+                <Tag className="h-4 w-4" />
+                {t('detail.tags')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-1.5 items-center">
+                {(ticket.tags || []).map((tt: any) => (
+                  <span
+                    key={tt.tag?.id || tt.tagId}
+                    className="inline-flex items-center gap-1 rounded-full pl-2.5 pr-1 py-0.5 text-xs font-medium text-white"
+                    style={{ backgroundColor: tt.tag?.color || '#6b7280' }}
+                  >
+                    {tt.tag?.name || ''}
+                    <button
+                      onClick={() => removeTagMutation.mutate(tt.tag?.id || tt.tagId)}
+                      className="ml-0.5 rounded-full p-0.5 hover:bg-white/20 transition"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+                <div className="relative">
+                  <button
+                    onClick={() => setTagPickerOpen(!tagPickerOpen)}
+                    className="inline-flex items-center gap-1 rounded-full border border-dashed border-muted-foreground/40 px-2 py-0.5 text-xs text-muted-foreground hover:border-primary hover:text-primary transition"
+                  >
+                    <Plus className="h-3 w-3" />
+                    {t('detail.addTag')}
+                  </button>
+                  {tagPickerOpen && (
+                    <div className="absolute top-full left-0 mt-1 z-50 w-52 rounded-lg border bg-background shadow-lg">
+                      <div className="p-2">
+                        <Input
+                          placeholder={t('detail.searchTag')}
+                          value={tagSearch}
+                          onChange={(e) => setTagSearch(e.target.value)}
+                          className="h-7 text-xs"
+                          autoFocus
+                        />
+                      </div>
+                      <div className="max-h-40 overflow-y-auto px-1 pb-1">
+                        {allTags
+                          .filter((tag: any) => {
+                            const existingTagIds = (ticket.tags || []).map((tt: any) => tt.tag?.id || tt.tagId);
+                            return !existingTagIds.includes(tag.id) &&
+                              tag.name.toLowerCase().includes(tagSearch.toLowerCase());
+                          })
+                          .map((tag: any) => (
+                            <button
+                              key={tag.id}
+                              onClick={() => addTagMutation.mutate(tag.id)}
+                              className="w-full flex items-center gap-2 px-2 py-1.5 text-xs rounded hover:bg-muted transition text-left"
+                            >
+                              <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: tag.color }} />
+                              {tag.name}
+                            </button>
+                          ))}
+                        {allTags.filter((tag: any) => {
+                          const existingTagIds = (ticket.tags || []).map((tt: any) => tt.tag?.id || tt.tagId);
+                          return !existingTagIds.includes(tag.id) && tag.name.toLowerCase().includes(tagSearch.toLowerCase());
+                        }).length === 0 && (
+                          <p className="text-xs text-muted-foreground text-center py-2">{t('detail.noTagsAvailable')}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </CardContent>
           </Card>
 

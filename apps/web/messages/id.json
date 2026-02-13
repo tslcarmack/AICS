@@ -31,6 +31,7 @@
     "prevPage": "Sebelumnya",
     "nextPage": "Berikutnya",
     "all": "Semua",
+    "clearFilter": "Hapus filter",
     "type": "Tipe",
     "createdAt": "Dibuat Pada",
     "error": {
@@ -64,6 +65,7 @@
     "variables": "Variabel",
     "tools": "Alat",
     "agents": "Agen",
+    "tags": "Tag",
     "safety": "Keamanan",
     "tickets": "Tiket",
     "settings": "Pengaturan",
@@ -126,6 +128,7 @@
       "customerEmail": "Email Pelanggan",
       "source": "Sumber",
       "status": "Status",
+      "tags": "Tag",
       "assignedTo": "Ditugaskan Ke",
       "createdAt": "Dibuat Pada",
       "actions": "Aksi"
@@ -160,7 +163,12 @@
       "replySent": "Balasan terkirim",
       "replyFailed": "Gagal mengirim balasan",
       "retrySubmitted": "Percobaan ulang dikirim",
-      "retryFailed": "Percobaan ulang gagal"
+      "retryFailed": "Percobaan ulang gagal",
+      "tagAddFail": "Gagal menambah tag",
+      "tagRemoveFail": "Gagal menghapus tag"
+    },
+    "filter": {
+      "byTag": "Filter tag"
     },
     "action": {
       "viewTicket": "Lihat Tiket",
@@ -168,6 +176,10 @@
       "close": "Tutup"
     },
     "detail": {
+      "id": "ID Tiket",
+      "createdAt": "Dibuat Pada",
+      "resolve": "Selesaikan",
+      "close": "Tutup",
       "noSubject": "Tanpa Subjek",
       "source": "Sumber:",
       "assignedTo": "Ditugaskan ke:",
@@ -180,6 +192,10 @@
       "sendReply": "Kirim Balasan",
       "ticketInfo": "Info Tiket",
       "intent": "Intensi Terdeteksi",
+      "tags": "Tag",
+      "addTag": "Tambah Tag",
+      "searchTag": "Cari tag...",
+      "noTagsAvailable": "Tidak ada tag tersedia",
       "extractedVars": "Variabel Terekstrak",
       "safetyFlags": "Tanda Keamanan",
       "processingLog": "Log Pemrosesan",
@@ -323,7 +339,8 @@
       "create": "Intensi Baru",
       "test": "Uji Intensi",
       "recognize": "Kenali",
-      "recognizing": "Mengenali..."
+      "recognizing": "Mengenali...",
+      "addAction": "Tambah Aksi"
     },
     "table": {
       "name": "Nama",
@@ -331,7 +348,6 @@
       "type": "Tipe",
       "status": "Status",
       "keywords": "Kata Kunci",
-      "boundAgent": "Agen Terikat",
       "actions": "Aksi"
     },
     "badge": {
@@ -354,7 +370,8 @@
     "label": {
       "keywords": "Kata Kunci (dipisahkan koma)",
       "exampleUtterances": "Contoh Ucapan (satu per baris)",
-      "testMessage": "Pesan Uji"
+      "testMessage": "Pesan Uji",
+      "actions": "Aksi"
     },
     "placeholder": {
       "name": "Nama intensi",
@@ -371,6 +388,20 @@
     },
     "test": {
       "result": "Hasil Pengenalan"
+    },
+    "actionType": {
+      "execute_agent": "Jalankan Agen",
+      "executeAgent": "Jalankan Agen",
+      "add_tag": "Tambah Tag",
+      "addTag": "Tambah Tag",
+      "escalate": "Eskalasi"
+    },
+    "actionConfig": {
+      "selectAgent": "Pilih Agen",
+      "selectTag": "Pilih Tag",
+      "escalateDesc": "Transfer tiket ke agen manusia",
+      "escalateWarning": "Aksi setelah eskalasi tidak akan dijalankan",
+      "noActions": "Belum ada aksi. Klik tombol di atas untuk menambahkan."
     },
     "toast": {
       "bindSuccess": "Berhasil diikat",
@@ -620,6 +651,32 @@
     "validation": {
       "nameRequired": "Silakan masukkan nama"
     }
+  },
+  "tags": {
+    "title": "Manajemen Tag",
+    "tagList": "Daftar Tag",
+    "create": "Buat Tag",
+    "createTag": "Buat Tag",
+    "editTag": "Edit Tag",
+    "name": "Nama",
+    "namePlaceholder": "Masukkan nama tag",
+    "color": "Warna",
+    "createdAt": "Dibuat Pada",
+    "actions": "Aksi",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "preview": "Pratinjau",
+    "loading": "Memuat...",
+    "empty": "Belum ada tag. Klik tombol di atas untuk membuat.",
+    "confirmDelete": "Hapus tag ini? Tag terkait pada tiket juga akan dihapus.",
+    "createSuccess": "Tag berhasil dibuat",
+    "createError": "Gagal membuat tag",
+    "updateSuccess": "Tag berhasil diperbarui",
+    "updateError": "Gagal memperbarui tag",
+    "deleteSuccess": "Tag berhasil dihapus",
+    "deleteError": "Gagal menghapus tag"
   },
   "safety": {
     "title": "Keamanan",

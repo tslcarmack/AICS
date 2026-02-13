@@ -14,6 +14,7 @@ import {
   Settings,
   Braces,
   Wrench,
+  Tag,
   LogOut,
 } from 'lucide-react';
 import { useAuthStore } from '@/lib/store';
@@ -27,6 +28,7 @@ const navItems = [
   { href: '/variables', labelKey: 'variables', icon: Braces },
   { href: '/tools', labelKey: 'tools', icon: Wrench },
   { href: '/agents', labelKey: 'agents', icon: Bot },
+  { href: '/tags', labelKey: 'tags', icon: Tag },
   { href: '/safety', labelKey: 'safety', icon: Shield },
   { href: '/tickets', labelKey: 'tickets', icon: Ticket },
   { href: '/settings', labelKey: 'settings', icon: Settings },

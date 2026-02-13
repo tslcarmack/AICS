@@ -50,6 +50,30 @@ async function main() {
   }
   console.log(`  ✓ ${presetIntents.length} preset intents`);
 
+  // Migrate existing Intent.boundAgentId to IntentAction records
+  const intentsWithAgent = await prisma.intent.findMany({
+    where: { boundAgentId: { not: null } },
+    select: { id: true, boundAgentId: true },
+  });
+  for (const intent of intentsWithAgent) {
+    const existing = await prisma.intentAction.findFirst({
+      where: { intentId: intent.id },
+    });
+    if (!existing && intent.boundAgentId) {
+      await prisma.intentAction.create({
+        data: {
+          intentId: intent.id,
+          type: 'execute_agent',
+          config: { agentId: intent.boundAgentId },
+          order: 1,
+        },
+      });
+    }
+  }
+  if (intentsWithAgent.length > 0) {
+    console.log(`  ✓ Migrated ${intentsWithAgent.length} intent(s) from boundAgentId to IntentAction`);
+  }
+
   // Seed system preset variables
   const presetVariables = [
     { name: 'CustomerName', type: 'value' },

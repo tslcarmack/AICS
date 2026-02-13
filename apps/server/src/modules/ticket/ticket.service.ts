@@ -25,6 +25,7 @@ export class TicketService {
     intentId?: string;
     startDate?: string;
     endDate?: string;
+    tagIds?: string[];
   }) {
     const pagination = parsePagination(params.page, params.pageSize);
     const where: any = {};
@@ -38,6 +39,9 @@ export class TicketService {
       if (params.startDate) where.createdAt.gte = new Date(params.startDate);
       if (params.endDate) where.createdAt.lte = new Date(params.endDate);
     }
+    if (params.tagIds && params.tagIds.length > 0) {
+      where.tags = { some: { tagId: { in: params.tagIds } } };
+    }
 
     const [items, total] = await Promise.all([
       this.prisma.ticket.findMany({
@@ -46,6 +50,7 @@ export class TicketService {
           intent: { select: { id: true, name: true } },
           assignedUser: { select: { id: true, name: true } },
           agent: { select: { id: true, name: true } },
+          tags: { include: { tag: true } },
           _count: { select: { messages: true } },
         },
         orderBy: { updatedAt: 'desc' },
@@ -80,6 +85,7 @@ export class TicketService {
         pipelines: {
           orderBy: { createdAt: 'asc' },
         },
+        tags: { include: { tag: true } },
         emailAccount: { select: { id: true, email: true, displayName: true } },
       },
     });
@@ -150,6 +156,25 @@ export class TicketService {
       data: { status: 'closed' },
     });
     await this.addActivity(id, 'status_change', 'Ticket closed', userId);
+    return { success: true };
+  }
+
+  async addTag(ticketId: string, tagId: string) {
+    await this.findOrThrow(ticketId);
+    // Idempotent: upsert to avoid duplicate errors
+    await this.prisma.ticketTag.upsert({
+      where: { ticketId_tagId: { ticketId, tagId } },
+      update: {},
+      create: { ticketId, tagId },
+    });
+    return { success: true };
+  }
+
+  async removeTag(ticketId: string, tagId: string) {
+    await this.findOrThrow(ticketId);
+    await this.prisma.ticketTag.deleteMany({
+      where: { ticketId, tagId },
+    });
     return { success: true };
   }
 

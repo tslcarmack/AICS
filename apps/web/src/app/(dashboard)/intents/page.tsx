@@ -24,7 +24,15 @@ import { SimpleDialog } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, FlaskConical, Link2, Pencil, Trash2 } from 'lucide-react';
+import {
+  Plus,
+  FlaskConical,
+  Pencil,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
+  AlertTriangle,
+} from 'lucide-react';
 
 function createIntentSchema(nameRequired: string) {
   return z.object({
@@ -42,16 +50,146 @@ type IntentFormValues = {
   exampleUtterances?: string;
 };
 
+interface IntentAction {
+  id?: string;
+  type: string;
+  config: any;
+  order: number;
+}
+
 interface IntentItem {
   id: string;
   name: string;
   description?: string;
-  type: string; // 'preset' | 'custom'
+  type: string;
   keywords?: string[];
   exampleUtterances?: string[];
   enabled: boolean;
   boundAgentId?: string;
   boundAgent?: { id: string; name: string; type: string };
+  actions?: IntentAction[];
+}
+
+// ---- Action Row Component ----
+function ActionRow({
+  action,
+  index,
+  total,
+  agents,
+  tags,
+  t,
+  tc,
+  onUpdate,
+  onRemove,
+  onMoveUp,
+  onMoveDown,
+}: {
+  action: IntentAction;
+  index: number;
+  total: number;
+  agents: any[];
+  tags: any[];
+  t: (key: string) => string;
+  tc: (key: string) => string;
+  onUpdate: (action: IntentAction) => void;
+  onRemove: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+}) {
+  const isEscalateNotLast = action.type === 'escalate' && index < total - 1;
+
+  return (
+    <div className="flex items-start gap-2 rounded-lg border p-3">
+      <div className="flex-1 space-y-2">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium text-muted-foreground w-6 text-center">{index + 1}</span>
+          <Select
+            value={action.type}
+            onChange={(e) =>
+              onUpdate({ ...action, type: e.target.value, config: {} })
+            }
+            className="flex-1"
+          >
+            <option value="execute_agent">{t('actionType.executeAgent')}</option>
+            <option value="add_tag">{t('actionType.addTag')}</option>
+            <option value="escalate">{t('actionType.escalate')}</option>
+          </Select>
+        </div>
+
+        {action.type === 'execute_agent' && (
+          <Select
+            value={action.config?.agentId || ''}
+            onChange={(e) =>
+              onUpdate({ ...action, config: { agentId: e.target.value || undefined } })
+            }
+          >
+            <option value="">{t('actionConfig.selectAgent')}</option>
+            {agents.map((a: any) => (
+              <option key={a.id} value={a.id}>
+                {a.name}
+              </option>
+            ))}
+          </Select>
+        )}
+
+        {action.type === 'add_tag' && (
+          <Select
+            value={action.config?.tagId || ''}
+            onChange={(e) =>
+              onUpdate({ ...action, config: { tagId: e.target.value || undefined } })
+            }
+          >
+            <option value="">{t('actionConfig.selectTag')}</option>
+            {tags.map((tag: any) => (
+              <option key={tag.id} value={tag.id}>
+                {tag.name}
+              </option>
+            ))}
+          </Select>
+        )}
+
+        {action.type === 'escalate' && (
+          <p className="text-xs text-muted-foreground pl-8">{t('actionConfig.escalateDesc')}</p>
+        )}
+
+        {isEscalateNotLast && (
+          <div className="flex items-center gap-1 text-xs text-amber-600 pl-8">
+            <AlertTriangle className="h-3 w-3" />
+            {t('actionConfig.escalateWarning')}
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-6 w-6 p-0"
+          onClick={onMoveUp}
+          disabled={index === 0}
+        >
+          <ArrowUp className="h-3 w-3" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-6 w-6 p-0"
+          onClick={onMoveDown}
+          disabled={index === total - 1}
+        >
+          <ArrowDown className="h-3 w-3" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+          onClick={onRemove}
+        >
+          <Trash2 className="h-3 w-3" />
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export default function IntentsPage() {
@@ -60,10 +198,10 @@ export default function IntentsPage() {
   const [createOpen, setCreateOpen] = useState(false);
   const [editIntent, setEditIntent] = useState<IntentItem | null>(null);
   const [deleteIntent, setDeleteIntent] = useState<IntentItem | null>(null);
-  const [bindIntentId, setBindIntentId] = useState<string | null>(null);
-  const [bindAgentId, setBindAgentId] = useState('');
   const [testOpen, setTestOpen] = useState(false);
   const [testMessage, setTestMessage] = useState('');
+  const [createActions, setCreateActions] = useState<IntentAction[]>([]);
+  const [editActions, setEditActions] = useState<IntentAction[]>([]);
   const queryClient = useQueryClient();
 
   // ---- Queries ----
@@ -85,6 +223,15 @@ export default function IntentsPage() {
     retry: false,
   });
 
+  const { data: tags = [] } = useQuery({
+    queryKey: ['tags'],
+    queryFn: async () => {
+      const res = await api.get('/tags');
+      return res.data ?? [];
+    },
+    retry: false,
+  });
+
   // ---- Mutations ----
   const createMutation = useMutation({
     mutationFn: async (body: IntentFormValues) => {
@@ -93,11 +240,13 @@ export default function IntentsPage() {
         description: body.description,
         keywords: body.keywords ? body.keywords.split(',').map((s) => s.trim()).filter(Boolean) : [],
         exampleUtterances: body.exampleUtterances ? body.exampleUtterances.split('\n').map((s) => s.trim()).filter(Boolean) : [],
+        actions: createActions.map((a, i) => ({ type: a.type, config: a.config, order: i + 1 })),
       });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['intents'] });
       setCreateOpen(false);
+      setCreateActions([]);
       createForm.reset();
       toast.success(tc('toast.createSuccess'));
     },
@@ -111,11 +260,13 @@ export default function IntentsPage() {
         description: body.description,
         keywords: body.keywords ? body.keywords.split(',').map((s) => s.trim()).filter(Boolean) : [],
         exampleUtterances: body.exampleUtterances ? body.exampleUtterances.split('\n').map((s) => s.trim()).filter(Boolean) : [],
+        actions: editActions.map((a, i) => ({ type: a.type, config: a.config, order: i + 1 })),
       });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['intents'] });
       setEditIntent(null);
+      setEditActions([]);
       toast.success(tc('toast.updateSuccess'));
     },
     onError: () => toast.error(tc('toast.updateFailed')),
@@ -141,18 +292,6 @@ export default function IntentsPage() {
     },
   });
 
-  const bindMutation = useMutation({
-    mutationFn: async ({ id, agentId }: { id: string; agentId: string | null }) => {
-      await api.put(`/intents/${id}/bind-agent`, { agentId: agentId || null });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['intents'] });
-      setBindIntentId(null);
-      toast.success(t('toast.bindSuccess'));
-    },
-    onError: () => toast.error(t('toast.bindFailed')),
-  });
-
   const testMutation = useMutation({
     mutationFn: async (message: string) => {
       const res = await api.post('/intents/test', { message });
@@ -172,7 +311,7 @@ export default function IntentsPage() {
     defaultValues: { name: '', description: '', keywords: '', exampleUtterances: '' },
   });
 
-  // Populate edit form when editIntent changes
+  // Populate edit form & actions when editIntent changes
   useEffect(() => {
     if (editIntent) {
       editForm.reset({
@@ -181,10 +320,89 @@ export default function IntentsPage() {
         keywords: editIntent.keywords?.join(', ') ?? '',
         exampleUtterances: editIntent.exampleUtterances?.join('\n') ?? '',
       });
+      setEditActions(
+        (editIntent.actions || []).map((a) => ({
+          type: a.type,
+          config: a.config || {},
+          order: a.order,
+        }))
+      );
     }
   }, [editIntent, editForm]);
 
   const isPreset = (intent: IntentItem) => intent.type === 'preset';
+
+  // ---- Action helpers ----
+  const addAction = (setter: React.Dispatch<React.SetStateAction<IntentAction[]>>) => {
+    setter((prev) => [...prev, { type: 'execute_agent', config: {}, order: prev.length + 1 }]);
+  };
+
+  const removeAction = (setter: React.Dispatch<React.SetStateAction<IntentAction[]>>, index: number) => {
+    setter((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const updateAction = (setter: React.Dispatch<React.SetStateAction<IntentAction[]>>, index: number, action: IntentAction) => {
+    setter((prev) => prev.map((a, i) => (i === index ? action : a)));
+  };
+
+  const moveAction = (setter: React.Dispatch<React.SetStateAction<IntentAction[]>>, index: number, direction: -1 | 1) => {
+    setter((prev) => {
+      const newArr = [...prev];
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= newArr.length) return prev;
+      [newArr[index], newArr[targetIndex]] = [newArr[targetIndex], newArr[index]];
+      return newArr;
+    });
+  };
+
+  // Get action type label
+  const getActionLabel = (type: string) => {
+    try { return t(`actionType.${type}`); } catch { return type; }
+  };
+
+  // Summarize actions for table display
+  const summarizeActions = (intent: IntentItem) => {
+    const actions = intent.actions || [];
+    if (actions.length === 0) {
+      // Show legacy bound agent if present
+      return intent.boundAgent?.name ? `${t('actionType.executeAgent')}: ${intent.boundAgent.name}` : '-';
+    }
+    return actions.map((a) => getActionLabel(a.type)).join(' → ');
+  };
+
+  // ---- Actions editor component ----
+  const renderActionsEditor = (actions: IntentAction[], setter: React.Dispatch<React.SetStateAction<IntentAction[]>>) => (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <Label>{t('label.actions')}</Label>
+        <Button type="button" variant="outline" size="sm" onClick={() => addAction(setter)}>
+          <Plus className="h-3 w-3 mr-1" />
+          {t('button.addAction')}
+        </Button>
+      </div>
+      {actions.length === 0 && (
+        <p className="text-xs text-muted-foreground text-center py-3 border rounded-lg border-dashed">
+          {t('actionConfig.noActions')}
+        </p>
+      )}
+      {actions.map((action, index) => (
+        <ActionRow
+          key={index}
+          action={action}
+          index={index}
+          total={actions.length}
+          agents={agents}
+          tags={tags}
+          t={t}
+          tc={tc}
+          onUpdate={(a) => updateAction(setter, index, a)}
+          onRemove={() => removeAction(setter, index)}
+          onMoveUp={() => moveAction(setter, index, -1)}
+          onMoveDown={() => moveAction(setter, index, 1)}
+        />
+      ))}
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -195,7 +413,7 @@ export default function IntentsPage() {
             <FlaskConical className="mr-2 h-4 w-4" />
             {t('button.test')}
           </Button>
-          <Button onClick={() => { createForm.reset(); setCreateOpen(true); }}>
+          <Button onClick={() => { createForm.reset(); setCreateActions([]); setCreateOpen(true); }}>
             <Plus className="mr-2 h-4 w-4" />
             {t('button.create')}
           </Button>
@@ -227,8 +445,8 @@ export default function IntentsPage() {
                   <TableHead>{t('table.type')}</TableHead>
                   <TableHead>{t('table.status')}</TableHead>
                   <TableHead>{t('table.keywords')}</TableHead>
-                  <TableHead>{t('table.boundAgent')}</TableHead>
-                  <TableHead className="text-right">{t('table.actions')}</TableHead>
+                  <TableHead>{t('table.actions')}</TableHead>
+                  <TableHead className="text-right">{tc('actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -251,8 +469,8 @@ export default function IntentsPage() {
                     <TableCell className="max-w-[150px] truncate">
                       {intent.keywords?.join(', ') || '-'}
                     </TableCell>
-                    <TableCell>
-                      {intent.boundAgent?.name ?? '-'}
+                    <TableCell className="max-w-[200px]">
+                      <span className="text-xs text-muted-foreground">{summarizeActions(intent)}</span>
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2 justify-end">
@@ -270,17 +488,6 @@ export default function IntentsPage() {
                           title={tc('edit')}
                         >
                           <Pencil className="h-3.5 w-3.5" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setBindIntentId(intent.id);
-                            setBindAgentId(intent.boundAgentId ?? '');
-                          }}
-                          title={t('action.bindAgent')}
-                        >
-                          <Link2 className="h-3.5 w-3.5" />
                         </Button>
                         {!isPreset(intent) && (
                           <Button
@@ -322,6 +529,7 @@ export default function IntentsPage() {
             <Label>{t('label.exampleUtterances')}</Label>
             <Textarea {...createForm.register('exampleUtterances')} placeholder={t('placeholder.examples')} rows={3} />
           </div>
+          {renderActionsEditor(createActions, setCreateActions)}
           <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={() => setCreateOpen(false)}>{tc('cancel')}</Button>
             <Button type="submit" disabled={createMutation.isPending}>{tc('create')}</Button>
@@ -361,6 +569,7 @@ export default function IntentsPage() {
               <Label>{t('label.exampleUtterances')}</Label>
               <Textarea {...editForm.register('exampleUtterances')} placeholder={t('placeholder.examples')} rows={3} />
             </div>
+            {renderActionsEditor(editActions, setEditActions)}
             <div className="flex justify-end gap-2">
               <Button type="button" variant="outline" onClick={() => setEditIntent(null)}>{tc('cancel')}</Button>
               <Button type="submit" disabled={editMutation.isPending}>
@@ -390,25 +599,6 @@ export default function IntentsPage() {
             </div>
           </div>
         )}
-      </SimpleDialog>
-
-      {/* Bind agent dialog */}
-      <SimpleDialog open={!!bindIntentId} onOpenChange={(open) => !open && setBindIntentId(null)} title={t('dialog.bindTitle')}>
-        <div className="space-y-4">
-          <div>
-            <Label>{t('dialog.selectAgent')}</Label>
-            <Select value={bindAgentId} onChange={(e) => setBindAgentId(e.target.value)}>
-              <option value="">{t('option.noBind')}</option>
-              {agents.map((a: any) => (
-                <option key={a.id} value={a.id}>{a.name}</option>
-              ))}
-            </Select>
-          </div>
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setBindIntentId(null)}>{tc('cancel')}</Button>
-            <Button onClick={() => bindIntentId && bindMutation.mutate({ id: bindIntentId, agentId: bindAgentId || null })} disabled={bindMutation.isPending}>{tc('confirm')}</Button>
-          </div>
-        </div>
       </SimpleDialog>
 
       {/* Intent test dialog */}

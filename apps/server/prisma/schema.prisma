@@ -131,15 +131,29 @@ model Intent {
   exampleUtterances  Json?    @map("example_utterances") // string[]
   keywords           Json?    // string[]
   confidenceThreshold Float?  @default(0.7) @map("confidence_threshold")
-  boundAgentId       String?  @map("bound_agent_id")
+  boundAgentId       String?  @map("bound_agent_id") // deprecated: use IntentAction
   enabled            Boolean  @default(true)
   createdAt          DateTime @default(now()) @map("created_at")
   updatedAt          DateTime @updatedAt @map("updated_at")
 
-  boundAgent Agent?   @relation(fields: [boundAgentId], references: [id], onDelete: SetNull)
+  boundAgent Agent?        @relation(fields: [boundAgentId], references: [id], onDelete: SetNull)
   tickets    Ticket[]
+  actions    IntentAction[]
 
   @@map("intents")
+}
+
+model IntentAction {
+  id       String @id @default(cuid())
+  intentId String @map("intent_id")
+  type     String // execute_agent | add_tag | escalate
+  config   Json   @default("{}")
+  order    Int    @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  intent Intent @relation(fields: [intentId], references: [id], onDelete: Cascade)
+
+  @@map("intent_actions")
 }
 
 // ========================================
@@ -333,6 +347,32 @@ model AlertConfig {
 }
 
 // ========================================
+// Tag
+// ========================================
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String   @default("#6b7280")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tickets TicketTag[]
+
+  @@map("tags")
+}
+
+model TicketTag {
+  ticketId String @map("ticket_id")
+  tagId    String @map("tag_id")
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([ticketId, tagId])
+  @@map("ticket_tags")
+}
+
+// ========================================
 // Ticket
 // ========================================
 model Ticket {
@@ -362,6 +402,7 @@ model Ticket {
   safetyLogs        SafetyLog[]
   pipelines         PipelineProcessing[]
   toolExecutionLogs ToolExecutionLog[]
+  tags              TicketTag[]
 
   @@map("tickets")
 }

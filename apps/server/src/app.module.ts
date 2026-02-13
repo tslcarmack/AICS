@@ -15,6 +15,7 @@ import { TicketModule } from './modules/ticket/ticket.module';
 import { PipelineModule } from './modules/pipeline/pipeline.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ToolModule } from './modules/tool/tool.module';
+import { TagModule } from './modules/tag/tag.module';
 import { I18nModule } from './i18n/i18n.module';
 
 @Module({
@@ -40,6 +41,7 @@ import { I18nModule } from './i18n/i18n.module';
     IntentModule,
     VariableModule,
     ToolModule,
+    TagModule,
     AgentModule,
     SafetyModule,
     TicketModule,

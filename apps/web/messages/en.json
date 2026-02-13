@@ -31,6 +31,7 @@
     "prevPage": "Previous",
     "nextPage": "Next",
     "all": "All",
+    "clearFilter": "Clear filter",
     "type": "Type",
     "createdAt": "Created At",
     "error": {
@@ -64,6 +65,7 @@
     "variables": "Variables",
     "tools": "Tools",
     "agents": "Agents",
+    "tags": "Tags",
     "safety": "Safety",
     "tickets": "Tickets",
     "settings": "Settings",
@@ -127,6 +129,7 @@
       "customerEmail": "Customer Email",
       "source": "Source",
       "status": "Status",
+      "tags": "Tags",
       "assignedTo": "Assigned To",
       "createdAt": "Created At",
       "actions": "Actions"
@@ -161,7 +164,12 @@
       "replySent": "Reply sent",
       "replyFailed": "Failed to send reply",
       "retrySubmitted": "Retry submitted",
-      "retryFailed": "Retry failed"
+      "retryFailed": "Retry failed",
+      "tagAddFail": "Failed to add tag",
+      "tagRemoveFail": "Failed to remove tag"
+    },
+    "filter": {
+      "byTag": "Filter by tag"
     },
     "action": {
       "viewTicket": "View Ticket",
@@ -169,6 +177,10 @@
       "close": "Close"
     },
     "detail": {
+      "id": "Ticket ID",
+      "createdAt": "Created At",
+      "resolve": "Resolve",
+      "close": "Close",
       "noSubject": "No Subject",
       "source": "Source:",
       "assignedTo": "Assigned to:",
@@ -181,6 +193,10 @@
       "sendReply": "Send Reply",
       "ticketInfo": "Ticket Info",
       "intent": "Detected Intent",
+      "tags": "Tags",
+      "addTag": "Add Tag",
+      "searchTag": "Search tags...",
+      "noTagsAvailable": "No tags available",
       "extractedVars": "Extracted Variables",
       "safetyFlags": "Safety Flags",
       "processingLog": "Processing Log",
@@ -326,7 +342,8 @@
       "create": "New Intent",
       "test": "Test Intent",
       "recognize": "Recognize",
-      "recognizing": "Recognizing..."
+      "recognizing": "Recognizing...",
+      "addAction": "Add Action"
     },
     "table": {
       "name": "Name",
@@ -334,7 +351,6 @@
       "type": "Type",
       "status": "Status",
       "keywords": "Keywords",
-      "boundAgent": "Bound Agent",
       "actions": "Actions"
     },
     "badge": {
@@ -357,7 +373,8 @@
     "label": {
       "keywords": "Keywords (comma-separated)",
       "exampleUtterances": "Example Utterances (one per line)",
-      "testMessage": "Test Message"
+      "testMessage": "Test Message",
+      "actions": "Actions"
     },
     "placeholder": {
       "name": "Intent name",
@@ -374,6 +391,20 @@
     },
     "test": {
       "result": "Recognition Result"
+    },
+    "actionType": {
+      "execute_agent": "Execute Agent",
+      "executeAgent": "Execute Agent",
+      "add_tag": "Add Tag",
+      "addTag": "Add Tag",
+      "escalate": "Escalate"
+    },
+    "actionConfig": {
+      "selectAgent": "Select Agent",
+      "selectTag": "Select Tag",
+      "escalateDesc": "Transfer the ticket to a human agent",
+      "escalateWarning": "Actions after escalation will not be executed",
+      "noActions": "No actions yet. Click the button above to add one."
     },
     "toast": {
       "bindSuccess": "Bound successfully",
@@ -623,6 +654,32 @@
     "validation": {
       "nameRequired": "Please enter a name"
     }
+  },
+  "tags": {
+    "title": "Tag Management",
+    "tagList": "Tags",
+    "create": "Create Tag",
+    "createTag": "Create Tag",
+    "editTag": "Edit Tag",
+    "name": "Name",
+    "namePlaceholder": "Enter tag name",
+    "color": "Color",
+    "createdAt": "Created At",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "preview": "Preview",
+    "loading": "Loading...",
+    "empty": "No tags yet. Click the button above to create one.",
+    "confirmDelete": "Delete this tag? Associated ticket tags will also be removed.",
+    "createSuccess": "Tag created",
+    "createError": "Failed to create tag",
+    "updateSuccess": "Tag updated",
+    "updateError": "Failed to update tag",
+    "deleteSuccess": "Tag deleted",
+    "deleteError": "Failed to delete tag"
   },
   "safety": {
     "title": "Safety",

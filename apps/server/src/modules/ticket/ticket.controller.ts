@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Body,
   Param,
   Query,
@@ -26,6 +27,7 @@ export class TicketController {
     @Query('intentId') intentId?: string,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
+    @Query('tagIds') tagIds?: string,
   ) {
     return this.ticketService.list({
       page,
@@ -36,6 +38,7 @@ export class TicketController {
       intentId,
       startDate,
       endDate,
+      tagIds: tagIds ? tagIds.split(',') : undefined,
     });
   }
 
@@ -72,5 +75,15 @@ export class TicketController {
     @CurrentUser() user: { userId: string },
   ) {
     return this.ticketService.close(id, user.userId);
+  }
+
+  @Post(':id/tags')
+  addTag(@Param('id') id: string, @Body() body: { tagId: string }) {
+    return this.ticketService.addTag(id, body.tagId);
+  }
+
+  @Delete(':id/tags/:tagId')
+  removeTag(@Param('id') id: string, @Param('tagId') tagId: string) {
+    return this.ticketService.removeTag(id, tagId);
   }
 }
